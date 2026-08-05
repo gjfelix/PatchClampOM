@@ -1,0 +1,168 @@
+# PatchClamp_OM — .gitignore
+# Directories kept locally but not published to the public repo
+/book/
+/lab_manual/
+/notebooks/
+/paper_figures/
+/scripts/
+
+
+# Archivos temporales de OpenModelica
+*.log
+*.csv
+*.mat
+*.py
+*.json
+*.html
+*.xml
+*.mos
+*.bak
+*.tmp
+*.aux
+*.lck
+*.err
+*.res
+*.rml
+*.rml2
+*.rml3
+*.rml4
+*.rml5
+*.rml6
+*.rml7
+*.rml8
+*.rml9
+*.rml10
+*.rml11
+*.rml12
+*.rml13
+*.rml14
+*.rml15
+*.rml16
+*.rml17
+*.rml18
+*.rml19
+*.rml20
+*.rml21
+*.rml22
+*.rml23
+*.rml24
+*.rml25
+*.rml26
+*.rml27
+*.rml28
+*.rml29
+*.rml30
+*.rml31
+*.rml32
+*.rml33
+*.rml34
+*.rml35
+*.rml36
+*.rml37
+*.rml38
+*.rml39
+*.rml40
+*.rml41
+*.rml42
+*.rml43
+*.rml44
+*.rml45
+*.rml46
+*.rml47
+*.rml48
+*.rml49
+*.rml50
+*.rml51
+*.rml52
+*.rml53
+*.rml54
+*.rml55
+*.rml56
+*.rml57
+*.rml58
+*.rml59
+*.rml60
+*.rml61
+*.rml62
+*.rml63
+*.rml64
+*.rml65
+*.rml66
+*.rml67
+*.rml68
+*.rml69
+*.rml70
+*.rml71
+*.rml72
+*.rml73
+*.rml74
+*.rml75
+*.rml76
+*.rml77
+*.rml78
+*.rml79
+*.rml80
+*.rml81
+*.rml82
+*.rml83
+*.rml84
+*.rml85
+*.rml86
+*.rml87
+*.rml88
+*.rml89
+*.rml90
+*.rml91
+*.rml92
+*.rml93
+*.rml94
+*.rml95
+*.rml96
+*.rml97
+*.rml98
+*.rml99
+*.rml100
+
+# Archivos de usuario de OMEdit
+OMEdit.ini
+OMNotebook.ini
+OMShell.ini
+OMPlot.ini
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Directorios de artefactos de CI
+/.github/actions/install-omc/omc*
+/.github/actions/install-omc/PhysioLibrary*
+
+# Otros
+*.swp
+*.swo
+*~
+
+# VSCode
+.vscode/
+
+# omc-sim.sh scratch dir (headless OpenModelica simulation runs via Docker)
+/.omc_runs/
+
+# Python venv used for figure generation (matplotlib etc.)
+/.venv/
+
+# Figure-generation source is intentionally tracked despite the blanket
+# *.py / *.mos ignores above (needed for paper reproducibility, Section 4.0)
+!paper_figures/*.py
+!paper_figures/*.mos
+
+# Dev-tool scripts are intentionally tracked despite the blanket *.py ignore
+!scripts/*.py
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Wiley journal-template assets (copyrighted, not for redistribution) and the
+# LaTeX manuscript itself are kept out of the public repo for now
+/WileyDesign/
+/paper_latex/
