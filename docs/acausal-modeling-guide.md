@@ -126,8 +126,8 @@ Now `seal_test.I_measured` (still the total current the amplifier sees) is
 (only the capacitive branch). They only *happen* to be numerically close in
 this specific example because `R_patch` (50 GΩ, channels closed) is so much
 larger than `R_seal` (1 GΩ) that `I_seal` dominates the sum — which is
-exactly the pedagogical point `validation_workflow.md`'s check W-2 exists to
-confirm (`patch.I_seal ≈ seal_test.I_measured` because `R_patch >> R_seal`).
+exactly the pedagogical point check W-2 in `docs/validation-results.md` exists
+to confirm (`patch.I_seal ≈ seal_test.I_measured` because `R_patch >> R_seal`).
 If you were modeling an open channel instead, `I_R_patch` would stop being
 negligible and the two variables would visibly diverge.
 
@@ -229,7 +229,7 @@ potential between a KCl-based pipette solution and ACSF bath). At rest,
 answering different questions:
 
 - **`neuron.V_m`** is the biophysical ground truth — use it whenever you're
-  validating the biophysics itself (this is what `validation_workflow.md`
+  validating the biophysics itself (this is what `docs/validation-results.md`
   uses for every Hodgkin-Huxley check, explicitly for this reason).
 - **`amplifier.V_membrane`** is what a real instrument would display *if you
   hadn't corrected for LJP* — use it when the pedagogical point is the
