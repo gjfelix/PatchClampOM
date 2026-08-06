@@ -82,15 +82,7 @@ for the first eight steps, walked through hands-on in
 | Voltage-clamp protocol | Step12–Step13, Step22–Step24 | Na⁺ channel I-V ladder, combined and isolated C-fast/C-slow/R_s compensation |
 | Single-channel patch | Step18–Step21 | On-cell (Kv), inside-out (BK+Ca²⁺), outside-out (AMPA), stochastic gating |
 
-## Physics Implemented
-
-$$E_\text{ion} = \frac{RT}{zF} \ln\frac{[\text{ion}]_\text{out}}{[\text{ion}]_\text{in}}$$
-
-$$J_\text{GHK} = P_\text{ion} \cdot z^2 \cdot \frac{VF^2}{RT} \cdot \frac{c_\text{in} - c_\text{out}\,e^{-zVF/RT}}{1 - e^{-zVF/RT}}$$
-
-$$C_m \frac{dV}{dt} = -g_\text{Na}m^3h(V-E_\text{Na}) - g_\text{K}n^4(V-E_\text{K}) - g_L(V-E_L) + I_\text{ext}/A$$
-
-$$I_\text{comp,fast} = f_\text{fast} \cdot C_\text{fast} \cdot \frac{d(p.v - n.v)}{dt}$$
+## Implementation details
 
 See [docs/physics-background.md](docs/physics-background.md) for derivations and
 typical values, and [docs/compensation-guide.md](docs/compensation-guide.md) for
@@ -98,28 +90,18 @@ the amplifier-compensation math specifically.
 
 ## Requirements
 
-| Dependency | Version | Required? |
-|---|---|---|
-| OpenModelica | ≥ 4.3.0 | **Yes** |
-| PhysioLibrary | 3.0.0 | Optional (for extensions) |
+Only OpenModelica ≥ 4 is required. 
 
 ## Documentation
 
 - [Getting Started](docs/getting-started.md) — installation, first simulation, tips
-- [Physics Background](docs/physics-background.md) — Nernst, GHK, HH equations
+- [Implementation Background](docs/physics-background.md) — Nernst, GHK, HH equations
 - [Model Reference](docs/model-reference.md) — parameters and expected results for each model
 - [Compensation Guide](docs/compensation-guide.md) — how C-fast, C-slow, and R_s compensation work in `Amplifiers.Compensation`
 - [Acausal Modeling Guide](docs/acausal-modeling-guide.md) — how the graphical blocks become equation systems, and how to decide what to plot
 - [Examples Reference](docs/examples-reference.md) — description, objectives, and simulation instructions for every `Step01`–`Step24` example
-- [Validation Results](docs/validation-results.md) — quantitative pass/fail checks against the underlying physics
+- [Validation Results](docs/validation-results.md) — quantitative pass/fail checks against the underlying implementation
 - [Contributing](CONTRIBUTING.md) — coding conventions for adding new models
-
-## References
-
-- Hodgkin AL, Huxley AF (1952). A quantitative description of membrane current... *J Physiol* 117:500–544
-- Goldman DE (1943). Potential, impedance, and rectification in membranes. *J Gen Physiol* 27:37–60
-- Neher E, Sakmann B (1976). Single-channel currents recorded from membrane of denervated frog muscle fibres. *Nature* 260:799–802
-- Morris C, Lecar H (1981). Voltage oscillations in the barnacle giant muscle fiber. *Biophys J* 35:193–213
 
 ## License
 
