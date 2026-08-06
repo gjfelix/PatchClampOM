@@ -61,13 +61,6 @@ equation
         recording in a real cell.
       </p>
 
-      <h3>Equivalent circuit</h3>
-      <pre>
-  Amp.       Pipette         Cell             Bath
-  [V-clamp]--[R_pip]------+--[C_m]--+------[R_bath]--GND
-              [C_pip]      +--[R_m]--+
-      </pre>
-
       <h3>Protocol</h3>
       <pre>
   t = 0    - 50 ms:   V_command = -70 mV  (holding)

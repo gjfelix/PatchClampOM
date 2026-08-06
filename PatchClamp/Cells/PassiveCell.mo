@@ -21,11 +21,7 @@ equation
   annotation(
     Documentation(info = "<html>
       <h2>PassiveCell</h2>
-      <p>Membrane modeled as a parallel RC circuit:</p>
-      <pre>
-    membrane_p --+--- C_m ---+-- membrane_n
-                 +--- R_m ---+
-      </pre>
+      <p>Membrane modeled as C_m and R_m in parallel between membrane_p and membrane_n.</p>
       <p>
         The starting point for learning voltage clamp: a voltage step
         produces the characteristic transient capacitive current.

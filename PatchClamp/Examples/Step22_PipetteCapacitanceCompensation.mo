@@ -97,12 +97,12 @@ equation
         no whole-cell membrane capacitance is in the circuit yet.
       </p>
 
-      <h3>Circuit</h3>
-      <pre>
-  [CompensatedVClampAmp] --[PatchPipette]-- [CellAttachedPatch] --[BathElectrode]
-        amp.p                 pip.p_cell        patch.p_pip
-        C-fast comp                             (R_seal=1G, R_patch=50G, C_patch=0.1pF)
-      </pre>
+      <p>
+        Circuit: <code>CompensatedVClampAmp</code> (C-fast comp) -&gt;
+        <code>PatchPipette</code> -&gt; <code>CellAttachedPatch</code>
+        (R_seal=1G, R_patch=50G, C_patch=0.1pF) -&gt;
+        <code>BathElectrode</code>.
+      </p>
 
       <h3>A technical subtlety: what the visible transient actually is</h3>
       <p>

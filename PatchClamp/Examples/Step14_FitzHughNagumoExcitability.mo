@@ -68,8 +68,10 @@ equation
         explore visually than in the full Hodgkin-Huxley model.
       </p>
 
-      <h3>Circuit</h3>
-      <pre>  [CurrentClampAmp] -- [PatchPipette] -- [FitzHughNagumoNeuron] -- [BathElectrode]</pre>
+      <p>
+        Circuit: <code>CurrentClampAmp</code> -&gt; <code>PatchPipette</code>
+        -&gt; <code>FitzHughNagumoNeuron</code> -&gt; <code>BathElectrode</code>.
+      </p>
 
       <h3>Variables worth plotting</h3>
       <ul>

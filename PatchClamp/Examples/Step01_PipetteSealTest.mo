@@ -55,13 +55,6 @@ equation
         resistance.
       </p>
 
-      <h3>Equivalent circuit</h3>
-      <pre>
-  SealTest         PatchPipette            BathElectrode
-  [V_pulse] ---- [R_pip  = 4 MOhm] ---- [R_bath = 100 Ohm] ---- GND
-                 [C_pip  = 3 pF  ]
-      </pre>
-
       <h3>Expected current</h3>
       <pre>
   I_steady = V_pulse / R_pip

@@ -81,7 +81,7 @@ equation
 
   annotation(
     Documentation(info = "<html>
-      <h2>Step18_OnCellSingleChannel — On-Cell Patch Clamp</h2>
+      <h2>Step18_OnCellSingleChannel -- On-Cell Patch Clamp</h2>
       <p>
         Simulates a <strong>cell-attached (on-cell)</strong> patch clamp experiment
         on a membrane patch containing voltage-gated K⁺ channels (Kv).
@@ -91,7 +91,7 @@ equation
       <p>
         The pipette seals onto the intact cell membrane. The amplifier controls
         the <em>patch voltage</em> (pipette − bath), not the whole-cell voltage.
-        The intracellular face is not dialyzed — the cytoplasmic [K⁺] is the
+        The intracellular face is not dialyzed -- the cytoplasmic [K⁺] is the
         native value (140 mM) and cannot be changed during the experiment.
       </p>
 
@@ -130,7 +130,7 @@ equation
         <li>V_half and k_v are the two parameters a student extracts from fitting
             a Boltzmann to the I/I_max vs V relationship.</li>
         <li>The on-cell configuration preserves the native intracellular environment
-            — it is the least invasive patch-clamp mode.</li>
+            -- it is the least invasive patch-clamp mode.</li>
         <li>The amplifier measures pipette current; with n_channels = 1 this is
             truly a single-channel amplitude measurement.</li>
       </ul>

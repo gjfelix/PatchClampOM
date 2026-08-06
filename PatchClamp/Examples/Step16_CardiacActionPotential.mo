@@ -84,8 +84,10 @@ equation
         with the Ca2+ plateau characteristic of cardiac muscle.
       </p>
 
-      <h3>Circuit</h3>
-      <pre>  [CurrentClampAmp] -- [PatchPipette] -- [CardiacVentricularCell] -- [BathElectrode]</pre>
+      <p>
+        Circuit: <code>CurrentClampAmp</code> -&gt; <code>PatchPipette</code>
+        -&gt; <code>CardiacVentricularCell</code> -&gt; <code>BathElectrode</code>.
+      </p>
 
       <h3>Variables worth plotting</h3>
       <ul>

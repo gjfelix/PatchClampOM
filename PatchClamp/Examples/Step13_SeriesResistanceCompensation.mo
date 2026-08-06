@@ -65,14 +65,12 @@ equation
       </p>
 
       <h3>Circuit</h3>
-      <pre>
-  [CompensatedVClampAmp] --[PatchPipette]-- [PassiveCell] --[BathElectrode]
-        |    amp.p               pip.p_cell    cell.membrane_n   bath.n
-        |    C-fast comp                           |                |
-        |    C-slow comp                           |                |
-        |    R_s comp                              |                |
-        +------------------ GND bus ---------------+----------------+
-      </pre>
+      <p>
+        <code>CompensatedVClampAmp</code> (with C-fast, C-slow, and R_s
+        compensation) drives a <code>PatchPipette</code> into a
+        <code>PassiveCell</code>, grounded through a
+        <code>BathElectrode</code>.
+      </p>
 
       <h3>Expected raw signal (no compensation)</h3>
       <p>On the V_hold -&gt; V_step step (-70 mV -&gt; -50 mV):</p>

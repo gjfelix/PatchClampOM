@@ -95,14 +95,12 @@ equation
       </p>
 
       <h3>Step protocol</h3>
-      <pre>
-  Cycle for each V_test (step_index = 0, 1, ..., 12):
-
-  |   t_hold_dur = 150 ms   | t_test_dur = 30 ms |
-  |                          |                    |
-  V: V_hold (-100 mV) ------ -> V_test ---------- -> V_hold
-  I:    ~ 0                      peak + recovery
-      </pre>
+      <p>
+        Cycles through each V_test (step_index = 0, 1, ..., 12): holds at
+        V_hold (-100 mV) for t_hold_dur = 150 ms, then steps to V_test for
+        t_test_dur = 30 ms (where the peak Na+ current and its recovery are
+        seen) before returning to V_hold.
+      </p>
       <p>
         V_hold = -100 mV fully removes Na+ channel inactivation (h -&gt; 1)
         before each test step.

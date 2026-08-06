@@ -78,12 +78,12 @@ equation
 
   annotation(
     Documentation(info = "<html>
-      <h2>Step21_StochasticSingleChannel — Stochastic Single-Channel Recording</h2>
+      <h2>Step21_StochasticSingleChannel -- Stochastic Single-Channel Recording</h2>
       <p>
         Same Kv channel as <code>Step18_OnCellSingleChannel</code> (identical V_half, k_v, tau_max,
         gamma, and ionic concentrations), but simulated with
         <code>StochasticChannel</code> instead of <code>SingleChannelPatch</code>,
-        with <em>n_channels = 1</em> — a genuine single-channel recording.
+        with <em>n_channels = 1</em> -- a genuine single-channel recording.
       </p>
 
       <h3>Expected results (default parameters, fixedSeed = 42)</h3>
@@ -104,7 +104,7 @@ equation
         closed and open at voltage-dependent rates, producing the rectangular,
         randomly-timed current steps seen in a real excised- or cell-attached-patch
         recording. Averaging many repeats of this experiment (or increasing
-        n_channels) recovers Step18's smooth curve — a direct illustration of the
+        n_channels) recovers Step18's smooth curve -- a direct illustration of the
         relationship between single-channel and mean-field (macroscopic) descriptions.
       </p>
     </html>"),

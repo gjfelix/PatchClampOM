@@ -52,17 +52,17 @@ model MarkovChannel
     annotation(Dialog(group = "Gating kinetics"));
 
   parameter Modelica.Units.SI.Time tau_max = 5.0e-3
-    "Maximum gating time constant [s] — occurs at V = V_half
+    "Maximum gating time constant [s] -- occurs at V = V_half
      (tau decreases symmetrically for voltages away from V_half)
      Typical: fast Nav ~ 0.1-0.5 ms,  Kv ~ 1-10 ms,  HCN ~ 100-300 ms"
     annotation(Dialog(group = "Gating kinetics"));
 
   PatchClamp.Interfaces.ElectricalPin_p membrane_p
-    "Positive electrical pin — pipette electrode side"
+    "Positive electrical pin -- pipette electrode side"
     annotation(Placement(transformation(extent = {{-110, -10}, {-90, 10}})));
 
   PatchClamp.Interfaces.ElectricalPin_n membrane_n
-    "Negative electrical pin — bath / ground side"
+    "Negative electrical pin -- bath / ground side"
     annotation(Placement(transformation(extent = {{90, -10}, {110, 10}})));
 
   Real P_open(start = 0.0, fixed = true)
@@ -85,10 +85,10 @@ model MarkovChannel
      This is what the patch-clamp amplifier measures";
 
   Real P_open_inf
-    "Steady-state open probability — Boltzmann curve in V_m";
+    "Steady-state open probability -- Boltzmann curve in V_m";
 
   Modelica.Units.SI.Time tau_channel
-    "Instantaneous gating time constant [s] — bell-shaped, max at V_half";
+    "Instantaneous gating time constant [s] -- bell-shaped, max at V_half";
 
 equation
   V_m = membrane_p.v - membrane_n.v;
@@ -109,7 +109,7 @@ equation
 
   annotation(
     Documentation(info = "<html>
-      <h2>MarkovChannel — 2-State Markov Ion Channel</h2>
+      <h2>MarkovChannel -- 2-State Markov Ion Channel</h2>
       <p>
         Models a membrane patch containing <em>n_channels</em> identical ion
         channels using a <strong>deterministic 2-state Markov scheme</strong>:
@@ -156,7 +156,7 @@ equation
         recording), see <code>PatchClamp.Membranes.StochasticChannel</code>,
         which implements the same alpha(V)/beta(V) rates as a genuine
         discrete-event Markov chain (random per-channel state transitions)
-        using only standard OpenModelica facilities — no stochastic ODE
+        using only standard OpenModelica facilities -- no stochastic ODE
         solver is required.
       </p>
 
@@ -175,12 +175,12 @@ equation
       <h3>Typical unitary conductances</h3>
       <table border='1'>
         <tr><th>Channel type</th><th>γ (pS)</th><th>V_half (mV)</th><th>tau_max</th></tr>
-        <tr><td>BK (large-conductance K⁺)</td><td>200–300</td><td>Ca²⁺-dependent, −20 to +20</td><td>1–5 ms</td></tr>
-        <tr><td>SK (small-conductance K⁺)</td><td>10–20</td><td>voltage-independent</td><td>—</td></tr>
-        <tr><td>Kv1.x (voltage-gated K⁺)</td><td>8–15</td><td>−20 to −10</td><td>2–10 ms</td></tr>
-        <tr><td>Nav1.x (voltage-gated Na⁺)</td><td>10–25</td><td>−35 to −25</td><td>0.1–0.5 ms</td></tr>
-        <tr><td>AMPA receptor</td><td>8–10</td><td>ligand-gated</td><td>2–5 ms</td></tr>
-        <tr><td>HCN (If, pacemaker)</td><td>1–3</td><td>−80 to −60 (k_v &lt; 0)</td><td>100–300 ms</td></tr>
+        <tr><td>BK (large-conductance K⁺)</td><td>200-300</td><td>Ca²⁺-dependent, −20 to +20</td><td>1-5 ms</td></tr>
+        <tr><td>SK (small-conductance K⁺)</td><td>10-20</td><td>voltage-independent</td><td>--</td></tr>
+        <tr><td>Kv1.x (voltage-gated K⁺)</td><td>8-15</td><td>−20 to −10</td><td>2-10 ms</td></tr>
+        <tr><td>Nav1.x (voltage-gated Na⁺)</td><td>10-25</td><td>−35 to −25</td><td>0.1-0.5 ms</td></tr>
+        <tr><td>AMPA receptor</td><td>8-10</td><td>ligand-gated</td><td>2-5 ms</td></tr>
+        <tr><td>HCN (If, pacemaker)</td><td>1-3</td><td>−80 to −60 (k_v &lt; 0)</td><td>100-300 ms</td></tr>
       </table>
 
       <h3>Connection to whole-cell models</h3>
@@ -197,7 +197,7 @@ equation
 
       <h3>Reference</h3>
       <p>Colquhoun D, Hawkes AG (1981). On the stochastic properties of single ion
-      channels. Proc R Soc Lond B 211:205–235.</p>
+      channels. Proc R Soc Lond B 211:205-235.</p>
     </html>"),
     experiment(
       StopTime  = 0.100,

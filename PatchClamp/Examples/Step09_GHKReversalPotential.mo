@@ -94,18 +94,10 @@ equation
       </ol>
 
       <h3>Voltage ramp</h3>
-      <pre>
-  V_m (mV)
-  +60 |                                /
-      |                            /
-    0 |                         /
-      |                      /
-  -89 |             X     /      E_K: I_ghk = 0 here
-      |          /
- -100 |_______/
-      |_________________________
-      t=0                    t=500ms
-      </pre>
+      <p>
+        V_m rises linearly from -100 mV at t=0 to +60 mV at t=500 ms; the
+        GHK current crosses zero at the reversal potential E_K ~ -89 mV.
+      </p>
 
       <h3>Key variables</h3>
       <ul>

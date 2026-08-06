@@ -39,13 +39,10 @@ model WholeCell
     "Membrane time constant [s]";
 
 equation
-  // Equivalent circuit (explicit equations, no MSL components):
-  //
-  //  p_pip ---- R_access ---- node_cell --+-- C_m ---- p_ext
-  //                                       +-- R_m ---- p_ext
-  //
-  // node_cell is eliminated algebraically: V_m = V_cell - p_ext.v is the
-  // only state (the C_m capacitor's voltage).
+  // Equivalent circuit (explicit equations, no MSL components): p_pip
+  // connects through R_access to node_cell, which splits into C_m and R_m
+  // in parallel down to p_ext. node_cell is eliminated algebraically:
+  // V_m = V_cell - p_ext.v is the only state (the C_m capacitor's voltage).
 
   V_pip  = p_pip.v;
   V_cell = V_m + p_ext.v;
@@ -79,10 +76,6 @@ equation
       <pre>
   tau_slow     = R_access * C_m   (transient visible in the seal-test)
   tau_membrane = R_m      * C_m   (slow discharge, ms-to-s timescale)
-      </pre>
-      <pre>
-  p_pip --[R_access]--+--[C_m]-- p_ext
-                       +--[R_m]-- p_ext
       </pre>
     </html>"),
     Icon(graphics = {

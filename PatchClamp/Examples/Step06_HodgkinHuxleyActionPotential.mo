@@ -60,7 +60,7 @@ equation
 
   annotation(
     Documentation(info = "<html>
-      <h2>Step06 — Potencial de accion Hodgkin-Huxley en current-clamp</h2>
+      <h2>Step06 -- Potencial de accion Hodgkin-Huxley en current-clamp</h2>
 
       <h3>Objetivo de aprendizaje</h3>
       <p>
@@ -70,15 +70,6 @@ equation
         variables de compuerta m, h y n describen la cinetica de los canales
         de Na+ y K+ durante el PA.
       </p>
-
-      <h3>Circuito equivalente</h3>
-      <pre>
-  Amplif.     Pipeta            Neurona HH              Bano
-  [I-clamp]──[R_pip]──────┬──[C_m]──────┬──────────[R_bath]──GND
-              [C_pip]      ├──[g_Na*m3h]─┤  (E_Na=+50 mV)
-                           ├──[g_K*n4]───┤  (E_K=-77 mV)
-                           └──[g_L]──────┘  (E_L=-54.4 mV)
-      </pre>
 
       <h3>Protocolo</h3>
       <pre>

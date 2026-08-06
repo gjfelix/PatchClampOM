@@ -94,13 +94,12 @@ equation
         deal with, and C-slow is what removes it.
       </p>
 
-      <h3>Circuit</h3>
-      <pre>
-  [CompensatedVClampAmp] --[PatchPipette]-- [WholeCell] --[BathElectrode]
-        amp.p                 pip.p_cell     cell.p_pip
-        C-fast comp (on)      R_pipette=4M   R_access=10M -+- C_m=50pF
-        C-slow comp (off)                                   +- R_m=200M
-      </pre>
+      <p>
+        Circuit: <code>CompensatedVClampAmp</code> (C-fast comp on, C-slow
+        comp off) -&gt; <code>PatchPipette</code> (R_pipette=4M) -&gt;
+        <code>WholeCell</code> (R_access=10M, C_m=50pF, R_m=200M) -&gt;
+        <code>BathElectrode</code>.
+      </p>
 
       <h3>Time constant (simulated)</h3>
       <pre>

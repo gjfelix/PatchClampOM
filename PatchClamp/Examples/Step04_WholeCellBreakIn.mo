@@ -6,11 +6,8 @@ model Step04_WholeCellBreakIn
   // voltage pulse), putting the pipette interior in electrical continuity
   // with the cytoplasm. The equivalent circuit changes from cell-attached's
   // (R_seal || R_patch || C_patch) (Step02) to whole-cell's R_access in
-  // series with (C_m || R_m) (this model):
-  //
-  //   SealTest         PatchPipette        WholeCell            Bath
-  //   [V_pulse] --- [R_pip + C_pip] --- [R_access] -+- C_m --- GND
-  //                                                   +- R_m --- GND
+  // series with (C_m || R_m) (this model), downstream of the same
+  // SealTest + PatchPipette front end and BathElectrode ground as Step02.
   //
   // On each -5 mV pulse there are three regimes: a fast transient
   // (tau_fast ~ R_pip*C_pip ~ 4M*3pF = 12 us, ~1 nA, charging C_pip, nearly
@@ -90,13 +87,6 @@ equation
         configuration. Its time constant, tau = R_access * C_m, sets the
         speed of the voltage clamp.
       </p>
-
-      <h3>Equivalent circuit</h3>
-      <pre>
-  SealTest    PatchPipette         WholeCell          Bath
-  [V_pls] - [R_pip=4M + C_pip=3pF] - [R_acc=10M] -+- C_m=50pF - GND
-                                                     +- R_m=200M - GND
-      </pre>
 
       <h3>Time constants</h3>
       <pre>

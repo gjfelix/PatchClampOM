@@ -55,7 +55,7 @@ equation
   p.i = -I_command;
 
   // n.i is left undetermined here -- it's set by the external circuit's own
-  // KCL at the ground node, and declaring it here would over-determine it
+  // KCL at the ground node 
 
   // Bridge compensation removes the R_pipette voltage drop from the raw
   // reading: V_raw = p.v - n.v, V_membrane = V_raw - I_command * R_bridge
@@ -70,16 +70,13 @@ equation
         reduce the pipette-resistance artifact.
       </p>
 
-      <pre>
-  Amplifier                     Pipette          Cell
-  +--------------+
-  |  I_command   |-->--- p ----[PatchPipette]---- [Cell]
-  |  (ideal I    |                                   |
-  |   source)    |                                   |
-  |              |---- n --------------------------- [Bath]
-  +--------------+
-  V_membrane = measured, bridge-compensated membrane voltage
-      </pre>
+      <p>
+        Drives an ideal current source between pins <code>p</code> and
+        <code>n</code>, typically wired through a <code>PatchPipette</code>
+        into a cell and back through a <code>BathElectrode</code>.
+        <code>V_membrane</code> reports the measured, bridge-compensated
+        membrane voltage.
+      </p>
 
       <p>Pulse protocol:</p>
       <pre>

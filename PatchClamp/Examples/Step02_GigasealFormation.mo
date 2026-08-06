@@ -75,14 +75,6 @@ equation
         continue.
       </p>
 
-      <h3>Equivalent circuit</h3>
-      <pre>
-  SealTest      PatchPipette            CellAttachedPatch      Bath
-  [V_pls] --- [R_pip=4M + C_pip=3pF] --+- R_seal=1G ------- GND
-                                        +- R_patch=50G ------ GND
-                                        +- C_patch=0.1pF ---- GND
-      </pre>
-
       <h3>Expected currents</h3>
       <pre>
   R_total = R_pip + R_seal || R_patch

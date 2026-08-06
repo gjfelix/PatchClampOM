@@ -53,16 +53,13 @@ equation
         current.
       </p>
 
-      <pre>
-  Amplifier                     Pipette          Cell
-  +--------------+
-  |  V_command   |---- p ----[PatchPipette]---- [Cell]
-  |  (ideal V    |                                 |
-  |   source)    |                                 |
-  |              |---- n --------------------------[Bath]
-  +--------------+
-  I_measured = current flowing from p into the pipette
-      </pre>
+      <p>
+        Drives an ideal voltage source between pins <code>p</code> and
+        <code>n</code>, typically wired through a <code>PatchPipette</code>
+        into a cell and back through a <code>BathElectrode</code>.
+        <code>I_measured</code> is the current flowing from <code>p</code>
+        into the pipette.
+      </p>
 
       <p>Step protocol:</p>
       <pre>

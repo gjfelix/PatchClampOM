@@ -3,15 +3,8 @@ model CellAttachedPatch
   "Cell-attached (gigaseal) membrane patch: R_seal || (R_patch || C_patch)"
 
   // This is the electrical equivalent circuit of the pipette tip pressed
-  // against the cell membrane:
-  //
-  //     pipette (p_pip)
-  //         |
-  //         +---------- R_seal ---------- bath (p_ext)
-  //         |
-  //         +----- R_patch -------------- bath (p_ext)
-  //         |
-  //         +----- C_patch -------------- bath (p_ext)
+  // against the cell membrane: R_seal, R_patch, and C_patch all connect
+  // the pipette node (p_pip) to the bath node (p_ext) in parallel.
   //
   // R_seal: resistance of the glass-to-membrane seal. Pre-seal (loose
   //   contact) ~10 MOhm, seal-test current ~350 pA; partial seal
@@ -85,15 +78,9 @@ equation
       <p>
         The equivalent circuit of the pipette tip pressed against the
         membrane in the cell-attached configuration (or any step leading up
-        to the gigaseal).
+        to the gigaseal): R_seal, R_patch, and C_patch all connect the
+        pipette node (p_pip) to the bath node (p_ext) in parallel.
       </p>
-      <pre>
-   p_pip --+--- R_seal ---------- p_ext
-           |
-           +--- R_patch --------- p_ext
-           |
-           +--- C_patch --------- p_ext
-      </pre>
       <table border='1'>
         <tr><th>R_seal</th><th>Seal state</th><th>I_steady (V=5 mV)</th></tr>
         <tr><td>10 MOhm</td><td>no seal (pipette free in bath)</td><td>500 pA</td></tr>
@@ -101,14 +88,10 @@ equation
         <tr><td>1 GOhm</td><td>gigaseal</td><td>5 pA</td></tr>
         <tr><td>10 GOhm</td><td>excellent gigaseal</td><td>0.5 pA</td></tr>
       </table>
-      <p>Typical wiring, in series with <code>SealTest</code> and <code>PatchPipette</code>:</p>
-      <pre>
-   SealTest.p -> PatchPipette.p_amp
-   PatchPipette.p_cell -> CellAttachedPatch.p_pip
-   CellAttachedPatch.p_ext -> BathElectrode.p
-      </pre>
       <p>
-        See <code>Step02_GigasealFormation</code> for the full worked example.
+        Typical wiring, in series with <code>SealTest</code> and
+        <code>PatchPipette</code>: see <code>Step02_GigasealFormation</code>
+        for the full worked example.
       </p>
     </html>"),
     Icon(graphics = {

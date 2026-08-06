@@ -89,11 +89,11 @@ equation
         (~-10 mV).
       </p>
 
-      <h3>Circuit</h3>
-      <pre>
-  [CurrentClampAmp(0)] -- [PatchPipette] -- [PacemakerCell] -- [BathElectrode]
-  I_command = 0 A  (the cell fires on its own)
-      </pre>
+      <p>
+        Circuit: <code>CurrentClampAmp</code> (I_command = 0 A -- the cell
+        fires on its own) -&gt; <code>PatchPipette</code> -&gt;
+        <code>PacemakerCell</code> -&gt; <code>BathElectrode</code>.
+      </p>
 
       <h3>Variables worth plotting</h3>
       <ul>

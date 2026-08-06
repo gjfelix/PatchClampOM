@@ -75,8 +75,10 @@ equation
         just three parameters.
       </p>
 
-      <h3>Circuit</h3>
-      <pre>  [CurrentClampAmp] -- [PatchPipette] -- [MorrisLecarNeuron] -- [BathElectrode]</pre>
+      <p>
+        Circuit: <code>CurrentClampAmp</code> -&gt; <code>PatchPipette</code>
+        -&gt; <code>MorrisLecarNeuron</code> -&gt; <code>BathElectrode</code>.
+      </p>
 
       <h3>Variables worth plotting</h3>
       <ul>

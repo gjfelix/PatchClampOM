@@ -96,13 +96,13 @@ equation
       </p>
 
       <h3>Circuit and series resistance</h3>
+      <p>
+        Circuit: <code>CompensatedVClampAmp</code> (C-fast comp on, C-slow
+        comp on, R_s comp off) -&gt; <code>PatchPipette</code>
+        (R_pipette=4M) -&gt; <code>WholeCell</code> (R_access=10M,
+        C_m=50pF, R_m=20M) -&gt; <code>BathElectrode</code>.
+      </p>
       <pre>
-  [CompensatedVClampAmp] --[PatchPipette]-- [WholeCell] --[BathElectrode]
-        amp.p                 pip.p_cell     cell.p_pip
-        C-fast comp (on)      R_pipette=4M   R_access=10M -+- C_m=50pF (on)
-        C-slow comp (on)                                    +- R_m=20M
-        R_s comp (off)
-
   R_s (total series resistance) = R_pipette + R_access = 4 MOhm + 10 MOhm = 14 MOhm
       </pre>
 

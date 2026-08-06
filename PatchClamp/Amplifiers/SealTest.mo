@@ -90,28 +90,12 @@ equation
 
       <h3>Equivalent circuit (cell-attached)</h3>
       <pre>
-  Amp.          Pipette                Seal
-  +------+      +------------------------------+
-  |      |--p-->| R_pip ---------------+------- |--> ground
-  |  V   |      |                      |        |
-  |  cmd |      |      C_pip        R_seal      |
-  |      |<-n--+|         |             |       |
-  +------+      +------------------------------+
-
   I_ss   = V_pulse / R_seal    (steady-state current)
   tau    = R_pip * C_pip       (transient time constant)
       </pre>
 
       <h3>Equivalent circuit (whole-cell)</h3>
       <pre>
-  Amp.          Pipette                Cell
-  +------+      +------------------------------+
-  |      |--p-->| R_pip ---------------+------- |--> ground
-  |  V   |      |                      |        |
-  |  cmd |      |                   C_m || R_m  |
-  |      |<-n--+ +------------------------------+
-  +------+
-
   I_ss   = V_pulse / R_m       (steady-state current)
   tau    = R_pip * C_m         (transient time constant)
       </pre>

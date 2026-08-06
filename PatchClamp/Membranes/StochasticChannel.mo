@@ -44,7 +44,7 @@ model StochasticChannel
      Validated up to n_channels ~ 20-50: at larger counts the simultaneous
      discrete state updates combined with a voltage-clamp feedback loop can
      overload the nonlinear solver. For n_channels beyond ~50, use
-     SingleChannelPatch (deterministic mean-field) instead — that is
+     SingleChannelPatch (deterministic mean-field) instead -- that is
      precisely the regime where the mean-field approximation is accurate
      and the stochastic detail is no longer the pedagogical point."
     annotation(Dialog(group = "Channel properties"));
@@ -59,7 +59,7 @@ model StochasticChannel
     annotation(Dialog(group = "Gating kinetics"));
 
   parameter Modelica.Units.SI.Time tau_max = 5.0e-3
-    "Maximum gating time constant [s] — at V = V_half + delta_V_half"
+    "Maximum gating time constant [s] -- at V = V_half + delta_V_half"
     annotation(Dialog(group = "Gating kinetics"));
 
   parameter Modelica.Units.SI.Voltage delta_V_half = 0.0
@@ -75,7 +75,7 @@ model StochasticChannel
 
   parameter Boolean useAutomaticSeed = false
     "= false: reproducible sequence (fixedSeed below); = true: seed from OS
-     (different random trace every run — use once results are understood)"
+     (different random trace every run -- use once results are understood)"
     annotation(Dialog(group = "Stochastic simulation"));
 
   parameter Integer fixedSeed = 1
@@ -112,7 +112,7 @@ model StochasticChannel
     "Effective half-activation voltage including ligand shift [V]";
 
   Real P_open_inf
-    "Steady-state open probability — Boltzmann function of V_m (same for every channel)";
+    "Steady-state open probability -- Boltzmann function of V_m (same for every channel)";
 
   Modelica.Units.SI.Time tau_channel
     "Instantaneous gating time constant [s]";
@@ -128,11 +128,11 @@ model StochasticChannel
 
   Modelica.Units.SI.Current I_patch
     "Total patch current [A] = sum of the (0/1)*i_unitary of every channel
-     — this is what a real amplifier would measure: discrete steps, not a
+     -- this is what a real amplifier would measure: discrete steps, not a
      smooth curve, when n_channels is small";
 
   Integer nOpenChannels(start = 0, fixed = true)
-    "Number of channels currently open [0..n_channels] — useful for
+    "Number of channels currently open [0..n_channels] -- useful for
      amplitude-histogram-style teaching exercises";
 
   Real c_in_eff(unit  = "mol/m3") "Effective intracellular-face concentration [mM]";
@@ -183,7 +183,7 @@ equation
 
   annotation(
     Documentation(info = "<html>
-      <h2>StochasticChannel — Stochastic Single-Channel Patch</h2>
+      <h2>StochasticChannel -- Stochastic Single-Channel Patch</h2>
       <p>
         Stochastic counterpart of <code>SingleChannelPatch</code>. Instead of solving
         an ODE for the ensemble-average open probability <em>P_open(t)</em>, each of
@@ -214,7 +214,7 @@ equation
         present in the Modelica Standard Library: (1) <code>Modelica.Blocks.Noise</code>
         for reproducible random numbers, and (2) discrete-event <code>when sample(...)</code>
         constructs, part of the Modelica language itself. No SDE integrator is
-        involved — this is an ordinary discrete-event (hybrid) simulation, the same
+        involved -- this is an ordinary discrete-event (hybrid) simulation, the same
         mechanism used for sampled-data control systems.
       </p>
 
@@ -230,7 +230,7 @@ equation
       <p>
         As <em>n_channels</em> increases, <em>I_patch</em> increasingly resembles the
         smooth macroscopic current of <code>SingleChannelPatch</code> / <code>MarkovChannel</code>
-        — a direct, hands-on demonstration of the law of large numbers linking
+        -- a direct, hands-on demonstration of the law of large numbers linking
         single-channel and whole-cell (mean-field) descriptions.
       </p>
 
@@ -243,7 +243,7 @@ equation
       <h3>Reproducibility</h3>
       <p>
         By default (<em>useAutomaticSeed = false</em>), every run with the same
-        <em>fixedSeed</em> produces the identical random trace — important so that
+        <em>fixedSeed</em> produces the identical random trace -- important so that
         students can compare their simulation results against expected values.
         Change <em>fixedSeed</em> to see a different (but still reproducible)
         realization of the same stochastic process.

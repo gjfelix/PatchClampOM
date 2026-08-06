@@ -65,15 +65,9 @@ initial equation
       <h2>PatchPipette</h2>
       <p>
         Models the electrical behavior of the borosilicate pipette that
-        interfaces the amplifier with the cell.
+        interfaces the amplifier with the cell: R_pipette connects p_amp to
+        p_cell, with C_pipette shunting that same node to ground (n).
       </p>
-      <pre>
-  p_amp ----+---- R_pipette ---- p_cell
-            |
-         C_pipette
-            |
-            n (ground)
-      </pre>
       <ul>
         <li>
           <b>R_pipette</b> -- series resistance set by the glass tip diameter
