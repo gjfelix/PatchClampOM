@@ -1,5 +1,5 @@
 # PatchClamp: OpenModelica Package for Patch Clamp Teaching 
-[![DOI](https://zenodo.org/badge/1324355945.svg)](https://doi.org/10.5281/zenodo.21815749)]
+[![DOI](https://zenodo.org/badge/1324355945.svg)](https://doi.org/10.5281/zenodo.21815749)
 
 > A drag-and-drop block-based modeling package for learning the **patch clamp** technique
 > using OpenModelica 4.x. No manual equation writing required for students.
