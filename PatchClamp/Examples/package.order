@@ -1,6 +1,7 @@
 Step01_PipetteSealTest
 Step02_GigasealFormation
 Step03_PassiveCellVoltageClamp
+Step04_WholeCellBreakIn
 Step05_PassiveCellCurrentClamp
 Step06_HodgkinHuxleyActionPotential
 Step07_RefractoryPeriod
