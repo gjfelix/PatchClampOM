@@ -85,6 +85,48 @@ After running the simulation, examine the following signals:
 
 ---
 
+<!-- build:start -->
+## Build it yourself
+
+Instead of opening the finished example you can build the model from an empty diagram, which is the best way to see how its blocks fit together. Read [Building a Model in OMEdit](00_BuildingModelsInOMEdit.md) first.
+
+1. Create a new model named `MyStep01` and open its **Diagram View**.
+2. Add the blocks, set their parameters and draw the connections exactly as in the tables below.
+
+| # | Instance name | Library block (drag from the Libraries panel) |
+|---|---|---|
+| 1 | `seal_test` | `PatchClamp → Amplifiers → SealTest` (seal-test amplifier) |
+| 2 | `pipette` | `PatchClamp → Electrodes → PatchPipette` (glass pipette) |
+| 3 | `bath` | `PatchClamp → Electrodes → BathElectrode` (bath electrode) |
+
+**Parameters** (double-click each block; anything not listed stays at its default):
+
+- `seal_test`: keep all defaults.
+
+- `pipette`:
+
+  | Parameter | Value |
+  |---|---|
+  | `V_junction` | `0.0` |
+
+- `bath`: keep all defaults.
+
+**Connections** (click one pin, then the other):
+
+| From | To |
+|---|---|
+| `seal_test.p` | `pipette.p_amp` |
+| `pipette.p_cell` | `bath.p` |
+| `seal_test.n` | `bath.n` |
+| `pipette.n` | `bath.n` |
+
+**Simulation setup** (Simulation → Simulation Setup): StopTime = 0.060, Interval = 6e-6, Tolerance = 1e-6.
+
+3. **Check Model**, then **Simulate**.
+
+Compare your model with `PatchClamp → Examples → Step01_PipetteSealTest`: the traces should overlay. From here on, the *Simulation Guide* below works with your `MyStep01` exactly as with the library example.
+<!-- build:end -->
+
 ## 5. Step-by-Step Simulation Guide
 
 1. Open the model `PatchClamp.Examples.Step01_PipetteSealTest` in your Modelica environment (e.g., OpenModelica or Dymola).

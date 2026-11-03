@@ -153,6 +153,53 @@ All voltage protocols in the series use this correction. Experimentally, LJP is 
 
 ---
 
+<!-- build:start -->
+## Build it yourself
+
+Instead of opening the finished example you can build the model from an empty diagram, which is the best way to see how its blocks fit together. Read [Building a Model in OMEdit](00_BuildingModelsInOMEdit.md) first.
+
+1. Create a new model named `MyStep03` and open its **Diagram View**.
+2. Add the blocks, set their parameters and draw the connections exactly as in the tables below.
+
+| # | Instance name | Library block (drag from the Libraries panel) |
+|---|---|---|
+| 1 | `amplifier` | `PatchClamp → Amplifiers → VoltageClampAmplifier` (voltage-clamp amplifier) |
+| 2 | `pipette` | `PatchClamp → Electrodes → PatchPipette` (glass pipette) |
+| 3 | `cell` | `PatchClamp → Cells → PassiveCell` |
+| 4 | `bath` | `PatchClamp → Electrodes → BathElectrode` (bath electrode) |
+
+**Parameters** (double-click each block; anything not listed stays at its default):
+
+- `amplifier`: keep all defaults.
+
+- `pipette`: keep all defaults.
+
+- `cell`:
+
+  | Parameter | Value |
+  |---|---|
+  | `C_m` | `10.0e-12` |
+  | `R_m` | `1.0e9` |
+
+- `bath`: keep all defaults.
+
+**Connections** (click one pin, then the other):
+
+| From | To |
+|---|---|
+| `amplifier.p` | `pipette.p_amp` |
+| `pipette.p_cell` | `cell.membrane_p` |
+| `cell.membrane_n` | `bath.p` |
+| `amplifier.n` | `bath.n` |
+| `pipette.n` | `bath.n` |
+
+**Simulation setup** (Simulation → Simulation Setup): StopTime = 0.200, Interval = 1e-4, Tolerance = 1e-8.
+
+3. **Check Model**, then **Simulate**.
+
+Compare your model with `PatchClamp → Examples → Step03_PassiveCellVoltageClamp`: the traces should overlay. From here on, the *Simulation Guide* below works with your `MyStep03` exactly as with the library example.
+<!-- build:end -->
+
 ## 8. Step-by-Step Simulation Guide
 
 1. Open `PatchClamp.Examples.Step03_PassiveCellVoltageClamp` in your Modelica environment.

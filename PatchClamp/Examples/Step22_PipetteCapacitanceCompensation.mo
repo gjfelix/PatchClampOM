@@ -43,7 +43,7 @@ model Step22_PipetteCapacitanceCompensation
     t_step_end    = 0.150,
     V_ljp_correction = 0.0,
     C_fast    = 3.0e-12,
-    frac_fast = 1,
+    frac_fast = 0.0,
     C_slow    = 10.0e-12,
     R_s_est   = 4.0e6,
     frac_slow = 0.0,

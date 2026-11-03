@@ -43,7 +43,7 @@ model Step24_AccessResistanceCompensation
     R_s_est   = 14.0e6,
     frac_slow = 1.0,
     R_s       = 14.0e6,
-    alpha     = 0.9,
+    alpha     = 0.0,
     tau_comp  = 50.0e-6)
     "Both capacitive transients pre-compensated; R_s compensation off by default -- toggle alpha up to 0.9"
     annotation(Placement(transformation(extent = {{-190, -40}, {-110, 40}})));

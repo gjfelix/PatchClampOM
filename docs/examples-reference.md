@@ -1,13 +1,12 @@
 # Examples Reference
 
 `PatchClamp.Examples` contains 25 ready-to-simulate models, `Step01` through
-`Step25`. Eight of them — the ones that introduce a genuinely new circuit
-topology a student should learn to assemble by hand — have a full,
-build-it-yourself walkthrough in `Tutorials/`. The other seventeen reuse
-circuit patterns already covered by those walkthroughs (current-clamp cell,
-voltage-clamp cell, or single-channel patch) with a different cell model or
-protocol, so instead of a from-scratch tutorial each gets a reference entry
-below: what it demonstrates, what to look for, and how to run it.
+`Step25`. **Every example has a build-it-yourself tutorial** in `Tutorials/`
+(start with `Tutorials/00_BuildingModelsInOMEdit.md`): you assemble the
+experiment from an empty diagram, compare your traces with the expected
+results, and explore with a few guided exercises. The entries below complement
+the tutorials with a short reference for each example: what it demonstrates,
+what to look for, and how to run it.
 
 **Use this page alongside:**
 - [`getting-started.md`](getting-started.md) — hands-on walkthroughs for the introductory examples
@@ -21,31 +20,31 @@ below: what it demonstrates, what to look for, and how to run it.
 
 | # | Model | Category | Documentation |
 |---|-------|----------|----------------|
-| 01 | `Step01_PipetteSealTest` | Patch clamp workflow | Getting Started §4 |
-| 02 | `Step02_GigasealFormation` | Patch clamp workflow | Getting Started §4 |
-| 03 | `Step03_PassiveCellVoltageClamp` | Passive cell | Getting Started §5 (brief) |
-| 04 | `Step04_WholeCellBreakIn` | Patch clamp workflow | Reference (below) |
-| 05 | `Step05_PassiveCellCurrentClamp` | Passive cell | Getting Started §5 |
-| 06 | `Step06_HodgkinHuxleyActionPotential` | Excitable cell | Getting Started §6 |
-| 07 | `Step07_RefractoryPeriod` | Excitable cell | Reference (below) |
-| 08 | `Step08_NernstEquilibriumPotential` | Ion equilibrium | Reference (below) |
-| 09 | `Step09_GHKReversalPotential` | Ion equilibrium | Getting Started §7 |
-| 10 | `Step10_GoldmanRestingPotential` | Ion equilibrium | Reference (below) |
-| 11 | `Step11_GHK_IVCurve` | Ion equilibrium | Reference (below) |
-| 12 | `Step12_SodiumChannelIVCurve` | Voltage-clamp protocol | Reference (below) |
-| 13 | `Step13_SeriesResistanceCompensation` | Voltage-clamp protocol | Reference (below) |
-| 14 | `Step14_FitzHughNagumoExcitability` | Excitable cell | Reference (below) |
-| 15 | `Step15_MorrisLecarExcitability` | Excitable cell | Reference (below) |
-| 16 | `Step16_CardiacActionPotential` | Excitable cell | Reference (below) |
-| 17 | `Step17_PacemakerAutorhythmicity` | Excitable cell | Reference (below) |
-| 18 | `Step18_OnCellSingleChannel` | Single-channel patch | Reference (below) |
-| 19 | `Step19_InsideOutSingleChannel` | Single-channel patch | Reference (below) |
-| 20 | `Step20_OutsideOutSingleChannel` | Single-channel patch | Reference (below) |
-| 21 | `Step21_StochasticSingleChannel` | Single-channel patch | Reference (below) |
-| 22 | `Step22_PipetteCapacitanceCompensation` | Voltage-clamp protocol | Reference (below) |
-| 23 | `Step23_WholeCellCapacitanceCompensation` | Voltage-clamp protocol | Reference (below) |
-| 24 | `Step24_AccessResistanceCompensation` | Voltage-clamp protocol | Reference (below) |
-| 25 | `Step25_LigandGatedSingleChannel` | Single-channel patch | Reference (below) |
+| 01 | `Step01_PipetteSealTest` | Patch clamp workflow | Tutorial |
+| 02 | `Step02_GigasealFormation` | Patch clamp workflow | Tutorial |
+| 03 | `Step03_PassiveCellVoltageClamp` | Passive cell | Tutorial |
+| 04 | `Step04_WholeCellBreakIn` | Patch clamp workflow | Tutorial |
+| 05 | `Step05_PassiveCellCurrentClamp` | Passive cell | Tutorial |
+| 06 | `Step06_HodgkinHuxleyActionPotential` | Excitable cell | Tutorial |
+| 07 | `Step07_RefractoryPeriod` | Excitable cell | Tutorial |
+| 08 | `Step08_NernstEquilibriumPotential` | Ion equilibrium | Tutorial |
+| 09 | `Step09_GHKReversalPotential` | Ion equilibrium | Tutorial |
+| 10 | `Step10_GoldmanRestingPotential` | Ion equilibrium | Tutorial |
+| 11 | `Step11_GHK_IVCurve` | Ion equilibrium | Tutorial |
+| 12 | `Step12_SodiumChannelIVCurve` | Voltage-clamp protocol | Tutorial |
+| 13 | `Step13_SeriesResistanceCompensation` | Voltage-clamp protocol | Tutorial |
+| 14 | `Step14_FitzHughNagumoExcitability` | Excitable cell | Tutorial |
+| 15 | `Step15_MorrisLecarExcitability` | Excitable cell | Tutorial |
+| 16 | `Step16_CardiacActionPotential` | Excitable cell | Tutorial |
+| 17 | `Step17_PacemakerAutorhythmicity` | Excitable cell | Tutorial |
+| 18 | `Step18_OnCellSingleChannel` | Single-channel patch | Tutorial |
+| 19 | `Step19_InsideOutSingleChannel` | Single-channel patch | Tutorial |
+| 20 | `Step20_OutsideOutSingleChannel` | Single-channel patch | Tutorial |
+| 21 | `Step21_StochasticSingleChannel` | Single-channel patch | Tutorial |
+| 22 | `Step22_PipetteCapacitanceCompensation` | Voltage-clamp protocol | Tutorial |
+| 23 | `Step23_WholeCellCapacitanceCompensation` | Voltage-clamp protocol | Tutorial |
+| 24 | `Step24_AccessResistanceCompensation` | Voltage-clamp protocol | Tutorial |
+| 25 | `Step25_LigandGatedSingleChannel` | Single-channel patch | Tutorial |
 
 ---
 
@@ -94,7 +93,7 @@ Default `stopTime = 0.060 s`, `interval = 3e-6 s` (fine enough to resolve the fa
 **Model:** `PatchClamp.Examples.Step07_RefractoryPeriod`
 **Uses:** `CurrentClampAmplifier` (extended with a second pulse) → `PatchPipette` → `HodgkinHuxleyNeuron` → `BathElectrode`
 
-Delivers two identical 30 pA / 2 ms current pulses separated by a variable
+Delivers two identical 300 pA / 2 ms current pulses (first pulse at t = 10-12 ms) separated by a variable
 delay (`t2_delay`) to the same HH neuron used in Step06, and shows whether
 the second pulse can fire a second action potential.
 
@@ -107,10 +106,10 @@ Default `stopTime = 0.050 s`, `interval = 1e-5 s`. Vary the single parameter
 `t2_delay`:
 | `t2_delay` | Expected outcome |
 |---|---|
-| 3 ms | No second AP (absolute refractory, `h` ≈ 0.05) |
-| 5 ms (default) | No second AP (`h` ≈ 0.15) |
-| 8 ms | Reduced second AP (relative refractory, `h` ≈ 0.35) |
-| 12 ms | Full second AP (`h` ≈ 0.55, recovered) |
+| 3 ms | No second AP (absolute refractory, `h` ≈ 0.08) |
+| 5 ms (default) | No second AP (`h` ≈ 0.21) |
+| 8 ms | Reduced second AP, peak ≈ +27 mV (relative refractory, `h` ≈ 0.43) |
+| 12 ms | Full second AP, peak ≈ +40 mV (`h` ≈ 0.57, recovered) |
 
 Plot `neuron.V_m`, `neuron.h`, `neuron.n`.
 
@@ -138,10 +137,11 @@ Default `stopTime = 1.0`, `interval = 1.0` (static model — any duration works,
 
 | `K_out` (mM) | `E_K` (mV) | `V_Goldman` (mV) |
 |---|---|---|
-| 1 | −118 | −82 |
-| 5 (default) | −89 | −65 |
-| 50 | −28 | −38 |
-| 150 | −1 | −20 |
+| 1 | −132.1 | −75.4 |
+| 5 (default) | −89.1 | −67.3 |
+| 20 | −52.0 | −49.1 |
+| 50 | −27.5 | −30.7 |
+| 150 | +1.8 | −4.5 |
 
 **Expected results:** this model isn't itself exercised by `validation-results.md`, but the identical Nernst formula is validated to sub-mV accuracy via `Step10_GoldmanRestingPotential` (checks **N-1** to **N-5**). Numbers above should agree with those checks at `K_out = 5 mM`.
 
@@ -215,11 +215,13 @@ Default `stopTime = 0.180 s`, `interval = 1e-5 s`. To build the full curve,
 simulate 13 times with `step_index = 0…12` (or script it — see the model's
 own documentation for an OMShell `for` loop), each time reading the peak of
 `neuron.I_Na` (or `amplifier.I_measured`) during the test phase (t =
-150–180 ms). Reference peak currents range from ≈ −0.01 nA at −80 mV to a
-Na⁺ current peak of ≈ −1.2 nA near −20 mV, inverting sign close to `E_Na =
-+50 mV`.
+150–180 ms). Measured peak Na⁺ currents (omc 1.24.0) are ≈ 0 below −60 mV,
+≈ −15.6 nA at −50 mV and then decrease in size to ≈ −6.9 nA at +40 mV; they do
+not invert within the ladder (`E_Na = +50 mV`) because the 4 MΩ pipette makes a
+large series-resistance error at these nanoampere currents (the cell reaches only
+≈ −12 mV at the +40 mV step). This is the artifact that Step13 and Step24 compensate.
 
-**Expected results:** not yet exercised by `validation-results.md` (no formal check assigned); the reference I-V table embedded in the model's `Documentation()` block gives the values above as design targets, not independently verified pass/fail bounds.
+**Expected results:** not yet exercised by `validation-results.md` (no formal check assigned); the reference I-V table embedded in the model's `Documentation()` block lists the values measured on 2026-11-03 (omc 1.24.0, `step_index` = 0…12) for the peak I_Na, the late I_K and the actual membrane potential; it is documentation, not part of the formal validation suite.
 
 **See also:** Step06 (same HH neuron, current-clamp instead of voltage-clamp); Step18 (an analogous voltage-ladder protocol on an isolated Kv patch instead of the whole HH neuron).
 
@@ -358,8 +360,9 @@ plane.
 
 **Simulation instructions**
 Default `stopTime = 0.100 s`, `interval = 1e-5 s`. Single-spike case ships as
-default (`I_pulse = 50 pA`, 2 ms). For repetitive firing, set `t_pulse_end =
-0.200` (continuous current) and raise `I_pulse` above ≈ 30 pA (threshold).
+default (`I_pulse = 50 pA`, 2 ms). For repetitive firing, set `t_pulse_end` and
+`stopTime` to 0.6 s (continuous current) with `I_pulse` between about 12 and 30 pA
+(period 82–90 ms, 11–12 Hz); the brief-pulse threshold lies between 20 and 25 pA.
 For a phase-plane view, plot `neuron.u` (fast variable) vs. `neuron.w`
 (recovery variable) as an XY/parametric plot.
 
@@ -386,12 +389,12 @@ Type I (SNIC).
 **Simulation instructions**
 Default `stopTime = 0.200 s`, `interval = 1e-5 s`, `I_pulse = 1000 pA`
 (continuous from t = 10 ms). For Type II: sweep `I_pulse` near the ≈ 940 pA
-bifurcation point and note the abrupt onset of ~40 Hz firing. For Type I: set
+bifurcation point and note the abrupt onset of firing at a finite rate (about 10 Hz near 900-940 pA, 11.7 Hz at 1000 pA). For Type I: set
 `neuron.V3 = 0.012`, `neuron.V4 = 0.0174`, `neuron.phi = 23.3`, then sweep
 `I_pulse` across 300–1000 pA (near the ≈ 397 pA SNIC threshold) and note the
 frequency rising continuously from 0 Hz.
 
-**Expected results:** validated as checks **M-1** (Type II, bifurcation ≈ 940 pA, abrupt ~40 Hz onset, ✅ PASS) and **M-2** (Type I, threshold ≈ 400 pA, graded 0→8→12 Hz f-I curve, ✅ PASS) in `validation-results.md`.
+**Expected results:** validated as checks **M-1** (Type II, bifurcation ≈ 940 pA, abrupt onset at a finite rate of about 10-12 Hz, ✅ PASS) and **M-2** (Type I, threshold ≈ 400 pA, graded 0→8→12 Hz f-I curve, ✅ PASS) in `validation-results.md`.
 
 **See also:** Step14 (FHN, another reduced excitable model); Step06 (full HH model, for comparison of fidelity vs. simulation cost).
 
@@ -418,7 +421,7 @@ refractory period, add a second pulse during the plateau (`amp.I_pulse2`,
 model Ca²⁺-channel block (e.g. verapamil), set `neuron.g_Ca = 0` — the
 plateau disappears and repolarization becomes immediate.
 
-**Expected results:** validated as checks **C-1** (APD90 ≈ 320 ms at 10 nA stimulus, within the 200–350 ms tolerance band, ✅ PASS) and **C-2** (resting potential ≈ −84 mV, ✅ PASS) in `validation-results.md`.
+**Expected results:** validated as checks **C-1** (APD90 ≈ 343 ms with the default 5 nA / 2 ms stimulus, within the 200–350 ms tolerance band, ✅ PASS) and **C-2** (resting potential ≈ −84 mV, ✅ PASS) in `validation-results.md`.
 
 **See also:** Step06 (neuronal AP, ~2 ms, no Ca²⁺ plateau); Step17 (spontaneously-firing cardiac pacemaker cell, vs. this stimulus-driven ventricular cell).
 
@@ -442,9 +445,9 @@ Default `stopTime = 3.0 s`, `interval = 1e-4 s` (long enough to capture
 several beats). Plot `cell.V_m`, `cell.y` (HCN gate), `cell.I_f`, `cell.I_Ca`.
 For simulated tachycardia (adrenergic effect), set `cell.g_f = 0.040`; for
 bradycardia (cholinergic effect), set `cell.g_f = 0.006`; for pharmacological
-`I_f` block (ivabradine), set `cell.g_f = 0` — automaticity stops.
+`I_f` block (ivabradine), set `cell.g_f = 0` — pacing slows to a period of about 1.7 s but does not stop. Measured periods: 0.853 s (default), 0.627 s (0.040), 1.082 s (0.006), 1.724 s (0).
 
-**Expected results:** validated as checks **P-1** (spontaneous firing, period ≈ 0.8 s, ✅ PASS) and **P-2** (simulated tachycardia at `g_f = 0.040`, period drops to ≈ 0.5 s, a 37.5% reduction, ✅ PASS) in `validation-results.md`.
+**Expected results:** validated as checks **P-1** (spontaneous firing, period 0.853 s, ✅ PASS) and **P-2** (simulated tachycardia at `g_f = 0.040`, period drops to 0.627 s, a 27 % reduction, ✅ PASS) in `validation-results.md`.
 
 **See also:** Step16 (the non-pacemaker cardiac cell — needs external stimulation, unlike this one).
 

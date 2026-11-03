@@ -311,9 +311,10 @@ For a course following the patch clamp technique from first principles:
 
 For every example beyond this guide, see the full
 [Examples Reference](examples-reference.md) (objectives + simulation
-instructions for all 25) and the Tutorials
-(start with [Step01](../Tutorials/Step01_PipetteSealTest_Tutorial.md); build-it-yourself walkthroughs for the 8 most pedagogically central
-examples: Step01, 02, 03, 04, 05, 06, 09, 11).
+instructions for all 25) and the tutorials: start with
+[Building a Model in OMEdit](../Tutorials/00_BuildingModelsInOMEdit.md), then follow
+[Step01](../Tutorials/Step01_PipetteSealTest_Tutorial.md) and the rest of the sequence. Every one of the
+25 examples has a build-it-yourself tutorial with expected results and exercises.
 
 ---
 

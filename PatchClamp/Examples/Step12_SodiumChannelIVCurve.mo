@@ -123,23 +123,31 @@ equation
   end for;
       </pre>
 
-      <h3>Reference values</h3>
+      <h3>Reference values (measured with omc 1.24.0, default settings)</h3>
       <pre>
-  V_test (mV) | I_Na peak (approx.) | I_K late (approx.)
-  ------------+---------------------+--------------------
-    -80       |    -0.01 nA         |    0 pA
-    -70       |    -0.05 nA         |    0 pA
-    -60       |    -0.15 nA         |   ~5 pA
-    -50       |    -0.40 nA         |  ~20 pA
-    -40       |    -0.80 nA         |  ~60 pA
-    -20       |    -1.20 nA         |  ~200 pA
-      0       |    -0.90 nA         |  ~400 pA
-    +20       |    -0.40 nA         |  ~600 pA
-    +40       |    ~0 nA            |  ~700 pA
+  V_test (mV) | peak I_Na (nA) | I_K at 180 ms (nA) | V_m at 179 ms (mV)
+  ------------+----------------+--------------------+-------------------
+    -80       |    ~0          |    ~0              |   -79.7
+    -70       |    ~0          |    ~0              |   -69.8
+    -60       |    -0.11       |     0.14           |   -60.3
+    -50       |   -15.6        |     0.68           |   -51.9
+    -40       |   -15.1        |     1.71           |   -44.9
+    -30       |   -13.9        |     2.99           |   -39.4
+    -20       |   -12.6        |     4.38           |   -34.7
+    -10       |   -11.3        |     5.80           |   -30.5
+      0       |   -10.3        |     7.25           |   -26.7
+    +10       |    -9.3        |     8.73           |   -23.0
+    +20       |    -8.5        |    10.2            |   -19.4
+    +30       |    -7.7        |    11.8            |   -15.9
+    +40       |    -6.9        |    13.3            |   -12.4
       </pre>
       <p>
-        I_Na reverses (turns positive) near E_Na = +50 mV, and peak Na+
-        conductance occurs around -20 to 0 mV.
+        The currents are in the nanoampere range, so the 4 MOhm pipette produces a large
+        series-resistance error: the membrane potential at the end of the step (last column)
+        falls far short of the command at large depolarizations (about 50 mV short at +40 mV).
+        Consequently the peak I_Na decreases steadily above -50 mV and does <em>not</em> change
+        sign within the ladder, although E_Na = +50 mV; the I-V curve is distorted by the clamp
+        error, exactly the artifact that Step13 and Step24 compensate.
       </p>
 
       <h3>Analyzing the I-V curve</h3>
@@ -158,7 +166,7 @@ equation
 
       <h3>Questions worth exploring</h3>
       <ol>
-        <li>At what V_test does I_Na change sign? Does it match E_Na = +50 mV, and if not, why the small discrepancy?</li>
+        <li>Does I_Na change sign within the ladder? Compare V_m at the end of the step with V_test and explain the discrepancy (see Step13 and Step24).</li>
         <li>Block K+ channels (g_K_max = 0) -- how does the shape of I_measured change?</li>
         <li>Block Na+ channels (g_Na_max = 0) -- what current remains, and can its I-V curve be computed?</li>
         <li>Why does V_hold = -100 mV matter, versus -65 mV? What would go wrong at -65 mV?</li>

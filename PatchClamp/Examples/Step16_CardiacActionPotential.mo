@@ -25,12 +25,13 @@ model Step16_CardiacActionPotential
 
   PatchClamp.Amplifiers.CurrentClampAmplifier amp(
     I_hold        = 0.0,
-    I_pulse       = 2000.0e-12,
+    I_pulse       = 5000.0e-12,
     t_pulse_start = 0.005,
     t_pulse_end   = 0.007,
     R_bridge      = 0.0)
-    // 2 nA x 2 ms: DeltaV = 2000e-12 * 2e-3 / 100e-12 = 40 mV (-80 to -40 mV).
-    // The Na+ threshold (~-45 mV) is crossed at ~1.75 ms. A short pulse is
+    // 5 nA x 2 ms: DeltaV = 5000e-12 * 2e-3 / 100e-12 = 100 mV. (2 nA x 2 ms, the
+    // earlier setting, stayed below threshold: V_m peaked at -50 mV and no AP fired.)
+    // The Na+ threshold (~-45 mV) is crossed within about 1 ms. A short pulse is
     // needed to cross threshold before h_Na inactivates (tau_h = 8 ms, so
     // pulses beyond ~5 ms start to see accommodation); a longer, slower
     // pulse (e.g. 500 pA x 10 ms) would let h_Na decay to ~0 before threshold.

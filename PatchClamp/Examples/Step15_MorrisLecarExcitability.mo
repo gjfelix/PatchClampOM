@@ -26,7 +26,7 @@ model Step15_MorrisLecarExcitability
     R_bridge      = 0.0)
     // I_pulse = 1000 pA (1 nA): safely above the Type II Hopf bifurcation
     // threshold (93.85 uA/cm2 * 1000 um2 = 1e-5 cm2 -> 938 pA). C_m = 200 pF
-    // gives the correct ~40 Hz firing frequency (barnacle muscle).
+    // gives sustained firing at about 11-12 Hz (measured: 11.7 Hz at 1000 pA).
     annotation(Placement(transformation(extent = {{-190, -40}, {-110, 40}})));
 
   PatchClamp.Electrodes.PatchPipette pip(
@@ -94,7 +94,7 @@ equation
       <table border='1'>
         <tr><th></th><th>Type II (Hopf)</th><th>Type I (SNIC)</th></tr>
         <tr><td>Bifurcation</td><td>Hopf (sub/supercritical)</td><td>SNIC (saddle-node)</td></tr>
-        <tr><td>Rate at threshold</td><td>finite (~40 Hz)</td><td>zero (rises continuously from 0)</td></tr>
+        <tr><td>Rate at threshold</td><td>finite (~10 Hz near threshold, 11.7 Hz at 1000 pA)</td><td>zero (rises continuously from 0)</td></tr>
         <tr><td>Sub-threshold response</td><td>graded</td><td>all-or-none</td></tr>
         <tr><td>f-I relationship</td><td>starts high</td><td>starts at 0 Hz</td></tr>
       </table>

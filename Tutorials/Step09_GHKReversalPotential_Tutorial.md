@@ -243,6 +243,57 @@ Key observations:
 
 ---
 
+<!-- build:start -->
+## Build it yourself
+
+Instead of opening the finished example you can build the model from an empty diagram, which is the best way to see how its blocks fit together. Read [Building a Model in OMEdit](00_BuildingModelsInOMEdit.md) first.
+
+1. Create a new model named `MyStep09` and open its **Diagram View**.
+2. Switch to the **Text View**, select everything and replace it with this code:
+
+```modelica
+model MyStep09
+  "Reversal potential -- I-V curve of a GHK channel under a voltage ramp (direct algebraic calculation)"
+  parameter Modelica.Units.SI.Voltage V_start = -0.100
+    "Starting ramp voltage [V] (-100 mV)";
+  parameter Modelica.Units.SI.Voltage V_end   =  0.060
+    "Final ramp voltage [V] (+60 mV)";
+  parameter Modelica.Units.SI.Time t_ramp     =  0.500
+    "Ramp duration [s]";
+  parameter Integer z = 1
+    "Ion valence (K+/Na+ -> 1, Ca2+ -> 2, Cl- -> -1)";
+  parameter Real P(unit = "m/s") = 1.0e-8
+    "Membrane permeability [m/s] (K+~1e-8, Na+~4e-10, Cl-~4.5e-9)";
+  parameter Real c_in(unit = "mol/m3") = 140.0
+    "Intracellular ion concentration [mM] (K+ typical: 140 mM)";
+  parameter Real c_out(unit = "mol/m3") = 5.0
+    "Extracellular ion concentration [mM] (K+ typical: 5 mM)";
+  parameter Real A(unit = "m2") = 1000.0e-12
+    "Membrane area [m2] (typical: 1000 um2)";
+  parameter Real T(unit = "K") = PatchClamp.Constants.T_body
+    "Temperature [K]";
+  Modelica.Units.SI.Voltage V_m "Membrane voltage (linear ramp) [V]";
+  Modelica.Units.SI.Current I_ghk "Total GHK current [A] (positive = outward)";
+  Real J_ghk(unit = "A/m2") "GHK current density [A/m2]";
+  Modelica.Units.SI.Voltage E_rev "Reversal potential = the ion's Nernst potential [V] (constant)";
+  Modelica.Units.SI.Current I_ohm "Matched ohmic current, for comparison with I_ghk [A]";
+  Real G_ohm(unit = "S") "Matched ohmic conductance [S] = I_ghk(V=0) / (-E_rev)";
+equation
+  V_m = V_start + (V_end - V_start) * (time / t_ramp);
+  J_ghk = PatchClamp.Media.Functions.ghkCurrentDensity(P, z, V_m, T, c_in, c_out);
+  I_ghk = J_ghk * A;
+  E_rev = PatchClamp.Media.Functions.nernstPotential(T, z, c_out, c_in);
+  G_ohm = abs(PatchClamp.Media.Functions.ghkCurrentDensity(P, z, 0.0, T, c_in, c_out) * A)
+          / (abs(E_rev) + 1.0e-9);
+  I_ohm = G_ohm * (V_m - E_rev);
+end MyStep09;
+```
+
+3. **Check Model** and simulate with the setup of the table in the *Simulation Guide* below.
+
+Compare your model with `PatchClamp → Examples → Step09_GHKReversalPotential`: the traces should overlay. From here on, the *Simulation Guide* below works with your `MyStep09` exactly as with the library example.
+<!-- build:end -->
+
 ## 5. Step-by-Step Simulation Guide
 
 ### 5.1 Open and verify the model

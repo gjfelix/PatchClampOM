@@ -282,6 +282,59 @@ channels, driving $V_m$ back below $V_{rest}$ to produce an
 
 ---
 
+<!-- build:start -->
+## Build it yourself
+
+Instead of opening the finished example you can build the model from an empty diagram, which is the best way to see how its blocks fit together. Read [Building a Model in OMEdit](00_BuildingModelsInOMEdit.md) first.
+
+1. Create a new model named `MyStep06` and open its **Diagram View**.
+2. Add the blocks, set their parameters and draw the connections exactly as in the tables below.
+
+| # | Instance name | Library block (drag from the Libraries panel) |
+|---|---|---|
+| 1 | `amplifier` | `PatchClamp → Amplifiers → CurrentClampAmplifier` (current-clamp amplifier) |
+| 2 | `pipette` | `PatchClamp → Electrodes → PatchPipette` (glass pipette) |
+| 3 | `neuron` | `PatchClamp → Cells → HodgkinHuxleyNeuron` |
+| 4 | `bath` | `PatchClamp → Electrodes → BathElectrode` (bath electrode) |
+
+**Parameters** (double-click each block; anything not listed stays at its default):
+
+- `amplifier`:
+
+  | Parameter | Value |
+  |---|---|
+  | `I_pulse` | `30.0e-12` |
+
+- `pipette`: keep all defaults.
+
+- `neuron`:
+
+  | Parameter | Value |
+  |---|---|
+  | `C_m` | `10.0e-12` |
+  | `A` | `1000.0e-12` |
+
+- `bath`: keep all defaults.
+
+**Connections** (click one pin, then the other):
+
+| From | To |
+|---|---|
+| `amplifier.p` | `pipette.p_amp` |
+| `pipette.p_cell` | `neuron.membrane_p` |
+| `neuron.membrane_n` | `bath.p` |
+| `amplifier.n` | `bath.n` |
+| `pipette.n` | `bath.n` |
+
+**Simulation setup** (Simulation → Simulation Setup): StopTime = 0.050, Interval = 1e-5, Tolerance = 1e-8.
+
+The amplifier is a **current-clamp** amplifier (it injects current and reports voltage).
+
+3. **Check Model**, then **Simulate**.
+
+Compare your model with `PatchClamp → Examples → Step06_HodgkinHuxleyActionPotential`: the traces should overlay. From here on, the *Simulation Guide* below works with your `MyStep06` exactly as with the library example.
+<!-- build:end -->
+
 ## 5. Step-by-Step Simulation Guide
 
 1. **Open OMEdit** and load `PatchClamp.Examples.Step06_HodgkinHuxleyActionPotential`.

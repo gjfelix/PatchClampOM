@@ -4,22 +4,22 @@ model Step17_PacemakerAutorhythmicity
 
   // With the default parameters (I_hold = 0, I_pulse = 0) the cell fires
   // on its own -- plot cell.V_m, cell.y, cell.I_f, cell.I_Ca and watch the
-  // slow diastolic depolarization driven by I_f (expected rate ~1.5 Hz,
-  // 60-90 bpm).
+  // slow diastolic depolarization driven by I_f (measured period 0.853 s,
+  // about 70 bpm).
   //
   // Sympathetic-like effect: cell.g_f = 0.040 (up from 0.014, x2.9) --
   // more I_f during diastolic depolarization speeds it up, giving a period
-  // of ~0.58 s (~103 bpm) vs. the ~0.80 s baseline. (V_f_half has little
+  // of 0.627 s (~96 bpm) vs. the 0.853 s baseline. (V_f_half has little
   // effect here since tau_y = 600 ms is much longer than the ~400 ms
   // diastolic window, so y never reaches y_inf before the next spike.)
   //
   // Parasympathetic-like effect: cell.g_f = 0.006 (down from 0.014,
-  // x0.43) slows diastolic depolarization, giving a period of ~1.4 s
-  // (~43 bpm, marked bradycardia).
+  // x0.43) slows diastolic depolarization, giving a period of 1.082 s
+  // (~55 bpm, bradycardia).
   //
   // I_f block (as with ivabradine): cell.g_f = 0.0 removes the funny
-  // current entirely -- automaticity stops, and V_m settles into a damped
-  // oscillation.
+  // current entirely -- pacing slows to a period of 1.724 s (~35 bpm) but does
+  // not stop (the Ca2+ and K+ currents still oscillate).
   //
   // I_Ca block (as with verapamil): cell.g_Ca = 0.0 removes the AP
   // upstroke -- no automaticity. Unlike neurons, the SAN's upstroke

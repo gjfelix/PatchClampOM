@@ -318,6 +318,63 @@ When plotted against time (not voltage), `I_total` shows:
 
 ---
 
+<!-- build:start -->
+## Build it yourself
+
+Instead of opening the finished example you can build the model from an empty diagram, which is the best way to see how its blocks fit together. Read [Building a Model in OMEdit](00_BuildingModelsInOMEdit.md) first.
+
+1. Create a new model named `MyStep11` and open its **Diagram View**.
+2. Add the blocks, set their parameters and draw the connections exactly as in the tables below.
+
+| # | Instance name | Library block (drag from the Libraries panel) |
+|---|---|---|
+| 1 | `int_sol` | `PatchClamp → Media → InternalSolution` (pipette (internal) solution) |
+| 2 | `ext_sol` | `PatchClamp → Media → ExternalSolution` (bath (external) solution) |
+| 3 | `membrane` | `PatchClamp → Membranes → GoldmanMembrane` |
+| 4 | `vClamp` | `PatchClamp → Amplifiers → RampVoltageSource` (voltage ramp source) |
+| 5 | `gnd` | `PatchClamp → Electrodes → Ground` (ground) |
+
+**Parameters** (double-click each block; anything not listed stays at its default):
+
+- `int_sol`: keep all defaults.
+
+- `ext_sol`: keep all defaults.
+
+- `membrane`:
+
+  | Parameter | Value |
+  |---|---|
+  | `c_K_in` | `int_sol.c_K` |
+  | `c_Na_in` | `int_sol.c_Na` |
+  | `c_Cl_in` | `int_sol.c_Cl` |
+  | `c_Ca_in` | `int_sol.c_Ca` |
+  | `c_K_out` | `ext_sol.c_K` |
+  | `c_Na_out` | `ext_sol.c_Na` |
+  | `c_Cl_out` | `ext_sol.c_Cl` |
+  | `c_Ca_out` | `ext_sol.c_Ca` |
+  | `T` | `int_sol.T` |
+
+- `vClamp`: keep all defaults.
+
+- `gnd`: keep all defaults.
+
+**Connections** (click one pin, then the other):
+
+| From | To |
+|---|---|
+| `vClamp.p` | `membrane.membrane_p` |
+| `vClamp.n` | `membrane.membrane_n` |
+| `gnd.p` | `membrane.membrane_n` |
+
+**Simulation setup** (Simulation → Simulation Setup): StopTime = 0.5, Interval = 0.001, Tolerance = 1e-8.
+
+The voltage ramp source drives the membrane directly; leave `membrane_p` of the membrane connected only to the ramp source, as in the table.
+
+3. **Check Model**, then **Simulate**.
+
+Compare your model with `PatchClamp → Examples → Step11_GHK_IVCurve`: the traces should overlay. From here on, the *Simulation Guide* below works with your `MyStep11` exactly as with the library example.
+<!-- build:end -->
+
 ## 5. Step-by-Step Simulation Guide
 
 ### 5.1 Open and verify the model

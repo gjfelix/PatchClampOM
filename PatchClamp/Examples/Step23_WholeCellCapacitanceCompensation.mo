@@ -38,7 +38,7 @@ model Step23_WholeCellCapacitanceCompensation
     frac_fast = 1.0,
     C_slow    = 50.0e-12,
     R_s_est   = 14.0e6,
-    frac_slow = 1,
+    frac_slow = 0.0,
     R_s       = 4.0e6,
     alpha     = 0.0)
     "C-fast already compensated (frac_fast=1); C-slow off by default -- toggle frac_slow to 1.0"

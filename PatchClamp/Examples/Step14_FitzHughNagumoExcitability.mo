@@ -2,14 +2,12 @@ within PatchClamp.Examples;
 model Step14_FitzHughNagumoExcitability
   "FitzHugh-Nagumo model under current clamp: single and repetitive firing"
 
-  // Worth trying: a single brief pulse (I_pulse=1.0e-12, t_start=10ms,
-  // t_end=12ms) gives one spike back to rest, in a stylized version of
-  // Step06's HH shape; a sustained pulse (t_end=0.200, I_pulse=5e-12,
-  // above the oscillation threshold) gives repetitive firing -- measure
-  // the inter-spike period; sweeping I_pulse from 1e-12 to 20e-12 (steps
-  // of 2e-12) with t_end=0.200 traces the f-I curve, worth comparing
-  // against SimplifiedNeuron's (LIF) very different f-I relationship; and
-  // plotting neuron.u vs. neuron.w in XY (parametric) mode shows the
+  // Worth trying (measured with omc 1.24.0): a brief 2 ms pulse of 25-50 pA gives
+  // one all-or-nothing spike (+71 to +82 mV) and a return to rest; 20 pA is
+  // subthreshold (V_m peaks at -38.7 mV). A sustained current (set t_pulse_end
+  // and the stop time to 0.6 s) of 12-30 pA gives repetitive firing with a period
+  // of 82-90 ms (about 11-12 Hz); at 50 pA the cell fires once and stays
+  // depolarized. Plotting neuron.u vs. neuron.w in XY (parametric) mode shows the
   // trajectory in the FHN phase plane.
 
   PatchClamp.Amplifiers.CurrentClampAmplifier amp(
@@ -18,8 +16,8 @@ model Step14_FitzHughNagumoExcitability
     t_pulse_start = 0.010,
     t_pulse_end   = 0.012,
     R_bridge     = 0.0)
-    // I_pulse = 50 pA: slightly above the FHN threshold (~40 pA) for a
-    // 2 ms pulse. HH's rheobase is 29 pA; FHN needs more here because the
+    // I_pulse = 50 pA: well above the FHN threshold for a 2 ms pulse (between
+    // 20 and 25 pA). HH's rheobase is 29 pA; FHN needs more here because the
     // Sylgard-coated pipette still adds C_pip=0.5 pF to the effective
     // membrane capacitance.
     annotation(Placement(transformation(extent = {{-190, -40}, {-110, 40}})));
@@ -91,9 +89,9 @@ equation
 
       <h3>Firing parameters</h3>
       <pre>
-  Approx. threshold (brief 2 ms pulse): I_pulse ~ 1.0 pA
-  Continuous oscillation threshold:     I_pulse ~ 3.5 pA
-  Repetitive-firing range:              3.5 pA to 15 pA
+  Threshold, brief 2 ms pulse:          between 20 pA (subthreshold) and 25 pA (spike)
+  Repetitive firing, continuous current: about 12 pA to 30 pA, period 82-90 ms (11-12 Hz)
+  50 pA continuous:                     one spike, then the cell stays depolarized
       </pre>
     </html>"),
     experiment(

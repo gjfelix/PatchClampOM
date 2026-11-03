@@ -324,6 +324,7 @@ Before opening a pull request, verify all of the following:
 - [ ] New model registered in the correct `package.order`
 - [ ] Companion example created (for new cell models)
 - [ ] Example registered in `Examples/package.order`
+- [ ] Build-it-yourself tutorial added to `Tutorials/` (see `Tutorials/00_BuildingModelsInOMEdit.md` and any existing tutorial for the format) and listed in the Tutorials table of contents of `docs/index.md`
 
 ### Physics
 - [ ] Units verified against SI definitions

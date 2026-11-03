@@ -283,7 +283,7 @@ depolarization.
 | Ivabradine (I_f blocker) | `g_f` → 0 | Selective HCN block → bradycardia without inotropy |
 
 **Expected simulation (Step17):** StopTime = 3.0 s, Interval = 1×10⁻⁴ s.
-Spontaneous firing at ~75 bpm (period ~0.80 s) with default `g_f = 0.014`.
+Spontaneous firing at ~70 bpm (period 0.853 s) with default `g_f = 0.014`.
 
 ---
 
@@ -559,10 +559,10 @@ diastolic depolarization that triggers Ca²⁺-driven action potentials.
 
 | Configuration | Approximate period | Approximate rate |
 |---|---|---|
-| Default (`g_f = 0.014`) | ~0.80 s | ~75 bpm |
-| Sympathetic (`g_f = 0.040`) | ~0.58 s | ~103 bpm |
-| Parasympathetic (`g_f = 0.006`) | ~1.37 s | ~44 bpm |
-| Ivabradine (`g_f = 0`) | No pacing | — |
+| Default (`g_f = 0.014`) | 0.853 s | ~70 bpm |
+| Sympathetic (`g_f = 0.040`) | 0.627 s | ~96 bpm |
+| Parasympathetic (`g_f = 0.006`) | 1.082 s | ~55 bpm |
+| Ivabradine (`g_f = 0`) | 1.724 s (slower, does not stop) | ~35 bpm |
 
 **Teaching point:** Heart rate is controlled by scaling I_f conductance,
 which directly modulates the diastolic depolarization rate.

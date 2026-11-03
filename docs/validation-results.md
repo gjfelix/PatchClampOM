@@ -130,11 +130,11 @@ quantities, so it doubles as a convenient single point to read all four values.)
 
 | Paper claim | Expected value | Simulated | Pass if | Status |
 |-------------|---------------|-----------|---------|--------|
-| E_Cl = -64.8 mV | -0.0641 V | -0.0648 V (-64.8 mV) | -0.066 V ≤ E_Cl ≤ -0.062 V | ✅ PASS |
+| E_Cl = -64.1 mV | -0.0641 V | -0.06408 V (-64.1 mV; re-measured 2026-11-03) | -0.066 V ≤ E_Cl ≤ -0.062 V | ✅ PASS |
 
 > **Note:** an earlier draft claim was -61.5 mV (computed from Cl_out/Cl_in ≈ 10, not 11). The model uses
 > Cl_out = 110 mM, Cl_in = 10 mM (ratio = 11), giving E_Cl = -(RT/F)·ln(11) = -64.1 mV analytically.
-> Simulation result -64.8 mV is within the textbook physiological range of -60 to -65 mV (Hille, 2001).
+> The simulation (omc 1.24.0, 2026-11-03) gives -64.08 mV, equal to the analytic value; it lies within the textbook physiological range of -60 to -65 mV (Hille, 2001).
 
 ---
 
@@ -396,6 +396,13 @@ during the AP upstroke and repolarization.
 **Pass if:** a second identical stimulus at t2_delay = 5 ms fails to produce a second
 AP, and at t2_delay = 12 ms always produces a full AP.
 
+> **Note (2026-11-03, re-validated headlessly):** the stimulus of `Step07` was corrected: with the earlier
+> 30 pA pulses of 3 ms and 2 ms the neuron never fired, so the "no second AP" result at 5 ms was trivial.
+> The example now uses two 300 pA / 2 ms pulses (first pulse at 10-12 ms). Measured with `omc` 1.24.0:
+> first AP peak +40.9 mV; second pulse at `t2_delay` = 3 ms and 5 ms gives no AP (V_m peak -27.7 and -65.8 mV,
+> `h` = 0.08 and 0.21 at the second pulse); 8 ms gives a reduced AP (+26.9 mV, `h` = 0.43); 12 ms gives a
+> full AP (+39.7 mV, `h` = 0.57). Both pass criteria of H-6 are met.
+
 ---
 
 ### Check H-7 — Ionic current directions (qualitative)
@@ -463,7 +470,7 @@ phi = 40 /s
 
 - [x] Model fires repetitively (tonic spiking) at I_pulse = 1000 pA
 - [x] Firing starts abruptly: at 850 pA only a single transient AP, then silence;
-  above ~940 pA immediate sustained oscillations at finite frequency (~40 Hz)
+  above ~940 pA immediate sustained oscillations at finite frequency (~10-12 Hz, measured 2026-11-03: 10.6 Hz at 940 pA, 11.7 Hz at 1000 pA)
 - [x] Membrane potential returns to near -60 mV between spikes
 - [x] Sharp bifurcation point (subcritical Hopf): no low-frequency intermediate regime
 
@@ -483,10 +490,10 @@ sustained oscillations above threshold; single transient AP below.
 - [x] At 500 pA (just above threshold): 4 APs in 0.5 s (~8 Hz)
 - [x] At 1 nA: 6 APs in 0.5 s (~12 Hz) — frequency rises continuously, not abruptly
 - [x] Above 1 nA: depolarization block (SNIC upper boundary)
-- [x] Contrast with Type II: Type II fires abruptly at ~940 pA at ~40 Hz; Type I rises from ~8 Hz near threshold
+- [x] Contrast with Type II: Type II fires abruptly at ~940 pA at ~10-12 Hz; Type I rises from ~8 Hz near threshold
 
 **Result: ✅ PASS** — Type I (SNIC) behavior confirmed. Threshold ≈ 400 pA; graded f–I curve
-(0 → 8 → 12 Hz over 0.3–1.0 nA) in contrast to Type II abrupt 40 Hz onset at 940 pA.
+(0 → 8 → 12 Hz over 0.3–1.0 nA) in contrast to Type II abrupt 10-12 Hz onset at 940 pA.
 
 ---
 
@@ -520,6 +527,12 @@ Note: plateau is a slow ramp from +50 mV to 0 mV (no sharp flat region), but APD
 - [ ] `neuron.I_Ca` is sustained inward current during plateau
 - [ ] `neuron.I_K` grows during plateau and drives repolarization
 
+> **Note (2026-11-03, re-validated headlessly):** the earlier default stimulus of `Step16` (2 nA for 2 ms) was
+> subthreshold (V_m peaked at -50.5 mV and no action potential fired). The example now uses 5 nA for 2 ms (pulse at
+> 5-7 ms). Measured with `omc` 1.24.0 (tolerance 1e-9): V_rest = -84.0 mV, V_peak = +49.4 mV at 10.2 ms,
+> APD90 = 343 ms (upstroke to 90 % repolarization) -- within the 200-350 ms band, near its upper edge. A 10 nA
+> stimulus gives V_peak = +89.2 mV and APD90 = 341 ms; 20 nA gives V_peak = +146 mV (non-physiological).
+
 ---
 
 ### Check C-2 — Resting potential of ventricular cell
@@ -547,7 +560,7 @@ Note: model uses −84 mV (= E_K = E_L) for stable resting equilibrium; paper va
 | Paper claim | Expected | Pass if | Measured | Result |
 |-------------|----------|---------|----------| -------|
 | Spontaneous firing | Regular APs without any input | V_m oscillates with regular period | 4 regular APs in 3 s | ✅ PASS |
-| Cycle length ≈ 800–1000 ms | 0.8–1.0 s/beat | 0.6 s ≤ period ≤ 1.2 s | ~0.8 s | ✅ PASS |
+| Cycle length ≈ 800–1000 ms | 0.8–1.0 s/beat | 0.6 s ≤ period ≤ 1.2 s | 0.853 s (re-measured 2026-11-03) | ✅ PASS |
 
 **Measure period:** time between two consecutive V_m peaks.
 
@@ -561,7 +574,7 @@ Note: model uses −84 mV (= E_K = E_L) for stable resting equilibrium; paper va
 
 | Measured | Result |
 |----------|--------|
-| Period ~0.50 s (37.5% reduction vs P-1 0.80 s) | ✅ PASS |
+| Period 0.627 s (27 % reduction vs P-1 0.853 s; criterion < 0.64 s, narrowly met; re-measured 2026-11-03) | ✅ PASS |
 
 > **Note:** V_f_half is the physiological adrenergic target (cAMP shifts HCN gating),
 > but it is ineffective when tau_y >> DDR duration. With tau_y = 600 ms and
@@ -715,7 +728,7 @@ ODE value (5.00 ms) matches exactly.
 | W-2 | Sec 3.4 | Step02 | I_steady ≈ -5 pA (gigaseal, 245× reduction) | ✅ ~5 pA |
 | N-1 | Table 1 | Step10 | E_K = -89.1 mV | ✅ PASS |
 | N-2 | Table 1 | Step10 | E_Na = +71.5 mV | ✅ PASS |
-| N-3 | Table 1 | Step10 | E_Cl = -64.8 mV | ✅ PASS |
+| N-3 | Table 1 | Step10 | E_Cl = -64.1 mV | ✅ PASS |
 | N-4 | Table 1 | Step10 | E_Ca = +132.3 mV | ✅ PASS |
 | N-5 | Sec 4.1 | Step10 | 61.5 mV/decade slope | ✅ PASS |
 | G-1 | Sec 4.1 | Step11 | V_rev (K+ only) ≈ -89 mV | ✅ PASS |
@@ -734,8 +747,8 @@ ODE value (5.00 ms) matches exactly.
 | M-2 | Sec 4.2 | Step15 | Type I low-freq firing | ✅ PASS |
 | C-1 | Sec 4.3 | Step16 | APD90 ≈ 320 ms (within [200,350] ms) | ✅ PASS |
 | C-2 | Sec 4.3 | Step16 | V_rest = -84 mV | ✅ PASS |
-| P-1 | Sec 4.3 | Step17 | Spontaneous, 800–1000 ms | ✅ ~800 ms |
-| P-2 | Sec 4.3 | Step17 | Rate increase with V_f_half | ✅ ~0.50 s (g_f×2.9) |
+| P-1 | Sec 4.3 | Step17 | Spontaneous, 800–1000 ms | ✅ 853 ms |
+| P-2 | Sec 4.3 | Step17 | Rate increase with V_f_half | ✅ 0.627 s (g_f×2.9, 27 % shorter) |
 | RC-1| Sec 3.4/Step03 | Step05_PassiveCellCurrentClamp | τ_m = 10 ms | ✅ PASS |
 | SC-1 | Sec 4.4 | Step18 | I_patch > 0, E_rev ≈ -89 mV (Kv on-cell) | ✅ PASS |
 | SC-2 | Sec 4.4 | Step19 | BK P_open shifts with Ca²⁺ | ✅ PASS |

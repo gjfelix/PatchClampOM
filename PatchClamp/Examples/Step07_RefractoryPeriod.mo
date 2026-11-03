@@ -10,14 +10,14 @@ model Step07_RefractoryPeriod
 
   PatchClamp.Amplifiers.CurrentClampAmplifier amplifier(
     I_hold         = 0.0,
-    I_pulse        = 30.0e-12,
-    t_pulse_start  = 0.005,
-    t_pulse_end    = 0.008,
-    I_pulse2       = 30.0e-12,
+    I_pulse        = 300.0e-12,
+    t_pulse_start  = 0.010,
+    t_pulse_end    = 0.012,
+    I_pulse2       = 300.0e-12,
     t_pulse2_start = 0.010 + t2_delay,
     t_pulse2_end   = 0.012 + t2_delay,
     R_bridge       = 4.0e6)
-    "Pulse 1: 30 pA at t=10-12 ms. Pulse 2: 30 pA at t=10+t2_delay ms."
+    "Pulse 1: 300 pA at t=10-12 ms. Pulse 2: 300 pA at t=10+t2_delay ms (2 ms each)."
     annotation(Placement(transformation(extent = {{-190, -40}, {-110, 40}})));
 
   PatchClamp.Electrodes.PatchPipette pipette(
@@ -73,10 +73,10 @@ equation
       </p>
       <table border='1' cellpadding='3'>
         <tr><th>t2_delay</th><th>h at t2</th><th>Result</th></tr>
-        <tr><td>3 ms</td><td>~0.05</td><td>no 2nd AP (absolute)</td></tr>
-        <tr><td>5 ms</td><td>~0.15</td><td>no 2nd AP (absolute)</td></tr>
-        <tr><td>8 ms</td><td>~0.35</td><td>reduced AP (relative)</td></tr>
-        <tr><td>12 ms</td><td>~0.55</td><td>full 2nd AP</td></tr>
+        <tr><td>3 ms</td><td>~0.08</td><td>no 2nd AP (absolute)</td></tr>
+        <tr><td>5 ms</td><td>~0.21</td><td>no 2nd AP (absolute)</td></tr>
+        <tr><td>8 ms</td><td>~0.43</td><td>reduced AP, peak ~+27 mV (relative)</td></tr>
+        <tr><td>12 ms</td><td>~0.57</td><td>full 2nd AP, peak ~+40 mV</td></tr>
       </table>
       <p>
         Variables worth plotting: <code>neuron.V_m</code> (one or two APs
