@@ -48,3 +48,29 @@ html_theme_options = {
     "source_branch": "main",
     "source_directory": "",
 }
+
+
+# The master document lives in docs/, so Sphinx writes the front page to docs/index.html and the
+# site root (https://<user>.github.io/<repo>/) would return 404. Write a small redirect page there.
+_REDIRECT = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PatchClampOM documentation</title>
+  <meta http-equiv="refresh" content="0; url=docs/index.html">
+  <link rel="canonical" href="docs/index.html">
+</head>
+<body><p>Redirecting to the <a href="docs/index.html">PatchClampOM documentation</a>.</p></body>
+</html>
+"""
+
+
+def _write_root_redirect(app, exception):
+    if exception is None and app.builder.format == "html":
+        import os
+        with open(os.path.join(app.outdir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(_REDIRECT)
+
+
+def setup(app):
+    app.connect("build-finished", _write_root_redirect)
