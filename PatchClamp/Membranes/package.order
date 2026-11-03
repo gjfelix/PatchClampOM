@@ -4,3 +4,5 @@ GoldmanMembrane
 MarkovChannel
 SingleChannelPatch
 StochasticChannel
+LigandGatedChannel
+WholeCell

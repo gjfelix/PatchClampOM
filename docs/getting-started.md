@@ -172,7 +172,7 @@ ramp driven directly by `time`, so it must be simulated for its full
 
 ---
 
-## 8. Single-Channel Patch Configurations — Step18–Step21
+## 8. Single-Channel Patch Configurations — Step18–Step21, Step25
 
 Three experiments demonstrate the three excised-patch configurations.
 All use `PatchClamp.Membranes.SingleChannelPatch` with `config = 1, 2, 3`.
@@ -228,6 +228,19 @@ instead of the deterministic mean-field ODE — rectangular jumps between 0
 and the unitary current, with random open/closed durations, rather than a
 smooth averaged curve. Increase `n_channels` to 5 or 20 and re-simulate to
 watch the trace smooth out toward Step18's shape (law of large numbers).
+
+### Step25 — Ligand-gated single-channel recording
+
+Open `PatchClamp → Examples → Step25_LigandGatedSingleChannel`. Simulate with
+**Stop time = 0.300 s**, **Interval = 5e-5**. Plot `chan.I_patch` together with
+`chan.c_L` (agonist concentration) and `chan.I_mean` (ensemble average).
+
+An outside-out patch held at -70 mV with a stochastic channel that is opened by
+an **agonist** instead of by voltage: a 30 µM pulse is applied from 0.05 to
+0.20 s. No current flows before or after the pulse; during it the channel
+flickers between 0 and -2.1 pA. Repeat with `chan.c_agonist` = 0.003, 0.010,
+0.030 and 0.100 mM to follow the dose-response curve, and increase
+`chan.n_channels` to watch the trace converge to `chan.I_mean`.
 
 ---
 
@@ -294,11 +307,13 @@ For a course following the patch clamp technique from first principles:
 | 7 | Step22, Step23, Step24 | Isolated C-fast, C-slow, and R_s compensation stages |
 | 8 | Step14, Step15 | Reduced neuron models, excitability classes |
 | 9 | Step16, Step17 | Cardiac AP plateau, pacemaker automaticity |
-| 10 | Step18, Step19, Step20, Step21 | Single-channel recording, patch configurations, ligand gating, stochastic gating |
+| 10 | Step18, Step19, Step20, Step21, Step25 | Single-channel recording, patch configurations, stochastic gating, agonist-gated channel |
 
 For every example beyond this guide, see the full
-[Examples Reference](examples-reference.md) — objectives and simulation
-instructions for all 24.
+[Examples Reference](examples-reference.md) (objectives + simulation
+instructions for all 25) and the Tutorials
+(start with [Step01](../Tutorials/Step01_PipetteSealTest_Tutorial.md); build-it-yourself walkthroughs for the 8 most pedagogically central
+examples: Step01, 02, 03, 04, 05, 06, 09, 11).
 
 ---
 
@@ -341,5 +356,5 @@ value of 0.08 S m⁻².
 
 - [Physics Background](physics-background.md) — derivations of Nernst, GHK, HH, and single-channel gating
 - [Model Reference](model-reference.md) — parameters and expected outputs for every model and example
-- [Examples Reference](examples-reference.md) — description, objectives, and simulation instructions for every Step01–Step24 example
+- [Examples Reference](examples-reference.md) — description, objectives, and simulation instructions for every Step01–Step25 example
 - [Contributing](../CONTRIBUTING.md) — how to add new cell models or experiments

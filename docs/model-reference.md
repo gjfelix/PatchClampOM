@@ -739,6 +739,7 @@ $$P_{\text{open},\infty}(V) = \frac{1}{1+e^{-(V - V_\text{half} - \delta V_\text
 | Step18 | 0.200 s | 1×10⁻⁵ s | default | Single-channel on-cell |
 | Step19 | 0.300 s | 1×10⁻⁵ s | default | Single-channel inside-out |
 | Step20 | 0.300 s | 1×10⁻⁵ s | default | Single-channel outside-out |
+| Step25 | 0.300 s | 5×10⁻⁵ s | default | Ligand-gated stochastic channel (interval = `chan.dt`) |
 
-For examples not covered above (Step03, Step04, Step11, Step21), see the
+For examples not covered above (Step03, Step04, Step11, Step21, Step25), see the
 [Examples Reference](examples-reference.md).

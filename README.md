@@ -33,7 +33,9 @@ cd PatchClampOM
 #    StopTime: 0.2 s  |  Interval: 1e-5 s
 ```
 
-See [docs/getting-started.md](docs/getting-started.md) for a detailed walkthrough.
+See [docs/getting-started.md](docs/getting-started.md) for a detailed walkthrough,
+or follow the [Step03 tutorial](Tutorials/Step03_PassiveCellVoltageClamp_Tutorial.md)
+to build the same circuit from scratch.
 
 ## Package Structure
 
@@ -48,8 +50,9 @@ PatchClamp/
 │                            + Compensation/ (C-fast, C-slow, R_s compensation)
 ├── Membranes/             ← Channel-level models: GHK/Goldman conductance, whole-cell
 │                            break-in, cell-attached patch, single-channel
-│                            (deterministic + stochastic gating), Markov channel
-└── Examples/              ← 24 ready-to-simulate experiments, Step01 – Step24
+│                            (deterministic + stochastic gating), ligand-gated stochastic
+│                            channel, Markov channel
+└── Examples/              ← 25 ready-to-simulate experiments, Step01 – Step25
 ```
 
 ## Cell Models
@@ -69,10 +72,12 @@ All models extend `Cells.Interfaces.PartialExcitableCell` — they share the sam
 
 ## Examples
 
-`PatchClamp.Examples` contains 24 ready-to-simulate models (`Step01`–`Step24`),
-documented in [`docs/examples-reference.md`](docs/examples-reference.md) and,
-for the first eight steps, walked through hands-on in
-[`docs/getting-started.md`](docs/getting-started.md).
+`PatchClamp.Examples` contains 25 ready-to-simulate models (`Step01`–`Step25`),
+documented in [`docs/examples-reference.md`](docs/examples-reference.md).
+Eight of them, the ones that introduce a new circuit topology, have a full
+build-it-yourself walkthrough in [`Tutorials/`](Tutorials/), and
+[`docs/getting-started.md`](docs/getting-started.md) walks through the main
+experiment types.
 
 | Category | Examples | Covers |
 |---|---|---|
@@ -81,7 +86,7 @@ for the first eight steps, walked through hands-on in
 | Ion equilibrium | Step08–Step11 | Nernst, GHK, Goldman resting potential, I-V curves |
 | Excitable cell | Step06–Step07, Step14–Step17 | HH action potential, refractory period, FitzHugh-Nagumo, Morris-Lecar, cardiac AP, pacemaker |
 | Voltage-clamp protocol | Step12–Step13, Step22–Step24 | Na⁺ channel I-V ladder, combined and isolated C-fast/C-slow/R_s compensation |
-| Single-channel patch | Step18–Step21 | On-cell (Kv), inside-out (BK+Ca²⁺), outside-out (AMPA), stochastic gating |
+| Single-channel patch | Step18–Step21, Step25 | On-cell (Kv), inside-out (BK+Ca²⁺), outside-out (AMPA), stochastic gating, ligand-gated channel |
 
 ## Implementation details
 
@@ -95,12 +100,15 @@ Only OpenModelica ≥ 4 is required.
 
 ## Documentation
 
+- **[Online documentation](https://gjfelix.github.io/PatchClampOM/)** — the full documentation below as a searchable website
 - [Getting Started](docs/getting-started.md) — installation, first simulation, tips
+- [Tutorials](Tutorials/) — build-it-yourself walkthroughs for the eight examples that introduce a new circuit topology
 - [Implementation Background](docs/physics-background.md) — Nernst, GHK, HH equations
+- [Block Reference](docs/block-reference.md) — catalogue of every model, connector, and function with parameters and icons
 - [Model Reference](docs/model-reference.md) — parameters and expected results for each model
 - [Compensation Guide](docs/compensation-guide.md) — how C-fast, C-slow, and R_s compensation work in `Amplifiers.Compensation`
 - [Acausal Modeling Guide](docs/acausal-modeling-guide.md) — how the graphical blocks become equation systems, and how to decide what to plot
-- [Examples Reference](docs/examples-reference.md) — description, objectives, and simulation instructions for every `Step01`–`Step24` example
+- [Examples Reference](docs/examples-reference.md) — description, objectives, and simulation instructions for every `Step01`–`Step25` example
 - [Validation Results](docs/validation-results.md) — quantitative pass/fail checks against the underlying implementation
 - [Contributing](CONTRIBUTING.md) — coding conventions for adding new models
 

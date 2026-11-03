@@ -5,8 +5,9 @@ formalisms implemented in PatchClampOM — the Nernst equation, the GHK flux
 equation, the Hodgkin-Huxley model, and the reduced, cardiac, and single-channel
 models — together with the exact simulation to run, the variable(s) to read,
 and the pass/fail criterion for each. It is the source of the "systematic
-validation suite of 29 quantitative checks" referenced in the accompanying
-manuscript, Section 4.
+validation suite of quantitative checks" referenced in the accompanying
+paper (35 checks as of 2026-11-02: the original 29 plus the six ligand-gated
+channel checks LG-1 to LG-6; 34 pass, the one exception being H-2).
 
 Use this alongside `model-reference.md` (parameter/output reference) and
 `physics-background.md` (the underlying equations) if you want to reproduce
@@ -682,6 +683,30 @@ At V_step = +40 mV:  P_open_inf = 1/(1+exp(-0.4)) ~ 0.60
 
 ---
 
+## S4.9 — Ligand-Gated Single Channel (Step25)
+
+Validated 2026-11-02 with `scripts/validate_step25.mos` (simulations, `outputFormat="csv"`) and
+`scripts/validate_step25.py` (analysis). Model: `PatchClamp.Examples.Step25_LigandGatedSingleChannel`
+(`LigandGatedChannel`: `gamma = 30 pS`, `E_rev = 0`, `EC50 = 10 µM`, `n_hill = 2`, `k_close = 200 s⁻¹`,
+agonist pulse 0.05–0.20 s, `V_hold = -70 mV`, `fixedSeed = 42`). Variants override only `chan.n_channels`,
+`chan.c_agonist` or the amplifier holding voltage via `extends ... (modifiers)`.
+Stochastic checks use a window inside the pulse (0.06–0.20 s) and 20 channels per patch to limit sampling noise.
+
+| Check | Claim | Expected | Pass if | Observed | Status |
+|-------|-------|----------|---------|----------|--------|
+| LG-1 | Unitary current at -70 mV | γ(V−E_rev) = −2.1 pA | −2.2 ≤ i ≤ −2.0 pA | −2.100 pA; single non-zero level in the trace | ✅ PASS |
+| LG-2 | Channel silent without agonist | I_patch = 0 and P_open_inf = 0 | \|I_patch\| = 0 for t < 50 ms and t > 220 ms | 0.0000 pA | ✅ PASS |
+| LG-3 | Hill open probability at 30 µM | 30²/(30²+10²) = 0.900 | 0.895 ≤ P_open_inf ≤ 0.905; ODE mean 0.88–0.92 | 0.9000; ODE 0.9000 (single channel open 89.3 % of pulse) | ✅ PASS |
+| LG-4 | Dose–response (Hill, EC50 = 10 µM, n = 2) | 3 / 10 / 30 / 100 µM → 0.083 / 0.500 / 0.900 / 0.990 | P_open_inf within 0.005; stochastic fraction open within 0.06 | 0.083 / 0.500 / 0.900 / 0.990; stochastic 0.075 / 0.503 / 0.891 / 0.985 | ✅ PASS |
+| LG-5 | Deactivation after agonist removal | τ = 1/k_close = 5 ms | 4–6 ms (log-linear fit, 200 channels) | stochastic 5.90 ms (edge of band, sampling noise); mean-field ODE 5.00 ms | ✅ PASS |
+| LG-6 | Gating independent of voltage | At +40 mV: i = +1.2 pA, P_open_inf unchanged | i = +1.2 ± 0.05 pA, P_open_inf 0.90, current ≥ 0 | +1.20 pA, 0.900, fraction open 0.890, min I_patch +15.6 pA (20 ch) | ✅ PASS |
+
+Note on LG-5: the stochastic estimate is the noisiest quantity (a 200-channel patch gives roughly ±10 %
+on the fraction open at one time point); it lands at the upper edge of the pre-set band. The deterministic
+ODE value (5.00 ms) matches exactly.
+
+---
+
 ## Summary Checklist
 
 | Check | Paper Location | Model / Example | Key Metric | Status |
@@ -715,6 +740,12 @@ At V_step = +40 mV:  P_open_inf = 1/(1+exp(-0.4)) ~ 0.60
 | SC-1 | Sec 4.4 | Step18 | I_patch > 0, E_rev ≈ -89 mV (Kv on-cell) | ✅ PASS |
 | SC-2 | Sec 4.4 | Step19 | BK P_open shifts with Ca²⁺ | ✅ PASS |
 | SC-3 | Sec 4.4 | Step20 | AMPA E_rev = 0 mV, I_patch crosses zero | ✅ PASS |
+| LG-1 | Sec 3.6 / 4.1 | Step25 | i_unitary = −2.1 pA at −70 mV | ✅ PASS |
+| LG-2 | Sec 3.6 / 4.1 | Step25 | No current without agonist | ✅ PASS |
+| LG-3 | Sec 3.6 / 4.1 | Step25 | P_open_inf = 0.90 at 30 µM (Hill) | ✅ PASS |
+| LG-4 | Sec 3.6 / 4.1 | Step25 | Dose–response follows Hill curve (3–100 µM) | ✅ PASS |
+| LG-5 | Sec 3.6 / 4.1 | Step25 | Deactivation τ = 1/k_close ≈ 5 ms | ✅ PASS (stochastic 5.9 ms; ODE 5.0 ms) |
+| LG-6 | Sec 3.6 / 4.1 | Step25 | Gating voltage-independent; current reverses at E_rev | ✅ PASS |
 
 ---
 

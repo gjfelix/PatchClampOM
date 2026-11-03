@@ -218,7 +218,7 @@ Every new cell model must have at least one runnable example in
 ### File placement and naming
 
 ```
-PatchClamp/Examples/Step25_MyExperiment.mo
+PatchClamp/Examples/Step26_MyExperiment.mo
 ```
 
 Number examples sequentially. Use descriptive names after the number.
@@ -227,7 +227,7 @@ Number examples sequentially. Use descriptive names after the number.
 
 ```modelica
 within PatchClamp.Examples;
-model Step25_MyExperiment "Brief description"
+model Step26_MyExperiment "Brief description"
   PatchClamp.Cells.MyNewCell cell(
     g_X = 2.0)
     annotation(Placement(...));
@@ -247,7 +247,7 @@ equation
     experiment(StopTime = 0.2, Interval = 1e-5, Tolerance = 1e-8),
     Documentation(info = "<html>...</html>"),
     Icon(...));
-end Step25_MyExperiment;
+end Step26_MyExperiment;
 ```
 
 ### Purely algebraic examples (no connectors)

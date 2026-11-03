@@ -1,7 +1,7 @@
-# Testing Guide: Step01–Step24 in OMEdit
+# Testing Guide: Step01–Step25 in OMEdit
 
 Quick reference for running each example in OMEdit and knowing what to look
-at. Covers `Step01` through `Step24`.
+at. Covers `Step01` through `Step25`.
 
 ## Common procedure (do this once per example)
 
@@ -59,6 +59,7 @@ at. Covers `Step01` through `Step24`.
 | 22 | `Step22_PipetteCapacitanceCompensation` | `amp.I_raw`, `amp.I_measured`, `amp.I_comp_fast` | Cell-attached (pre-break-in), C-fast isolated. Default `frac_fast=0`: `I_raw` peaks ≈ 6.4 nA just after the step. Set `frac_fast=1`: only a modest (~24%) reduction — most of the visible transient is `C_patch` charging through `R_pipette`, not `C_pipette`'s own current (see the model's own doc for why). Zoom to `0.050000–0.050005 s`. |
 | 23 | `Step23_WholeCellCapacitanceCompensation` | `amp.I_raw`, `amp.I_measured`, `amp.I_comp_slow` | Whole-cell, just after break-in, C-slow isolated. Default `frac_slow=0`: single ~650 µs exponential in `I_raw`. Set `frac_slow=1`: most of it disappears, leaving mostly a flat resistive step. Zoom to `0.050–0.053 s`. |
 | 24 | `Step24_AccessResistanceCompensation` | `cell.V_m`, `amp.V_m_estimated` | Whole-cell, both capacitive transients pre-compensated, R_s isolated. Default `alpha=0`: `cell.V_m` only reaches ≈ -29.4 mV of the commanded -50 mV step. Set `alpha=0.7` then `0.9`: `cell.V_m` approaches -41.3 mV, then -46.7 mV. |
+| 25 | `Step25_LigandGatedSingleChannel` | `chan.I_patch`, `chan.I_mean`, `chan.c_L`, `chan.nOpenChannels` | Agonist-gated stochastic channel at −70 mV: no current before 0.05 s, discrete steps of `i_unitary = −2.1 pA` during the 30 µM pulse (`P_open_inf = 0.90`), closing again after 0.20 s. Set `chan.c_agonist` to 0.003 / 0.010 / 0.030 / 0.100 mM to follow the Hill dose–response; raise `chan.n_channels` to see the trace converge to `chan.I_mean`. |
 
 ---
 

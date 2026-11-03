@@ -1,22 +1,22 @@
 within PatchClamp.Examples;
 model Step06_HodgkinHuxleyActionPotential
-  "Experimento 02: Potencial de accion en neuronas HH en current-clamp"
+  "Step06: Hodgkin-Huxley neuron action potential under current clamp"
 
-  // ── Componentes del circuito ─────────────────────────────────────────
+  // ── Circuit components ───────────────────────────────────────────────
   PatchClamp.Amplifiers.CurrentClampAmplifier amplifier(
     I_hold        = 0.0,
     I_pulse       = 30.0e-12,
     t_pulse_start = 0.010,
     t_pulse_end   = 0.015,
     R_bridge      = 4.0e6)
-    "Amplificador current-clamp: pulso 30 pA durante 5 ms (t=10-15 ms); umbral ~29 pA"
+    "Current-clamp amplifier: 30 pA pulse for 5 ms (t=10-15 ms); rheobase ~29 pA"
     annotation(Placement(transformation(extent={{-190,-40},{-110,40}})));
 
   PatchClamp.Electrodes.PatchPipette pipette(
     R_pipette  = 4.0e6,
     C_pipette  = 3.0e-12,
     V_junction = -11.0e-3)
-    "Pipeta de patch: R=4 MOhm, C=3 pF, LJP=-11 mV"
+    "Patch pipette: R=4 MOhm, C=3 pF, LJP=-11 mV"
     annotation(Placement(transformation(extent={{-90,-40},{-10,40}})));
 
   PatchClamp.Cells.HodgkinHuxleyNeuron neuron(
@@ -28,122 +28,123 @@ model Step06_HodgkinHuxleyActionPotential
     E_Na     = 0.050,
     E_K      = -0.077,
     E_L      = -0.0544)
-    "Neurona Hodgkin-Huxley: conductancias canonicas, T=6.3 C equivalente"
+    "Hodgkin-Huxley neuron: canonical conductances, 6.3 degC equivalent"
     annotation(Placement(transformation(extent={{10,-40},{90,40}})));
 
   PatchClamp.Electrodes.BathElectrode bath(
     R_bath = 100.0)
-    "Electrodo de bano: referencia a 0 V"
+    "Bath electrode: reference at 0 V"
     annotation(Placement(transformation(extent={{110,-40},{190,40}})));
 
 equation
-  // ── Conexiones del circuito ──────────────────────────────────────────
-  // Amplificador → Pipeta
+  // ── Circuit connections ──────────────────────────────────────────────
+  // Amplifier → Pipette
   connect(amplifier.p, pipette.p_amp)
     annotation(Line(points={{-110,0},{-90,0}}, color={0,0,255}));
 
-  // Pipeta → Neurona
+  // Pipette → Neuron
   connect(pipette.p_cell, neuron.membrane_p)
     annotation(Line(points={{-10,0},{10,0}}, color={0,0,255}));
 
-  // Neurona → Electrodo de bano
+  // Neuron → Bath electrode
   connect(neuron.membrane_n, bath.p)
     annotation(Line(points={{90,0},{110,0}}, color={0,0,255}));
 
-  // Bus de tierra: amplificador y electrodo de bano
+  // Ground bus: amplifier and bath electrode
   connect(amplifier.n, bath.n)
     annotation(Line(points={{-190,0},{-190,-80},{190,-80},{190,0}}, color={0,0,255}));
 
-  // Tierra de la pipeta al bus de tierra
+  // Pipette ground to the ground bus
   connect(pipette.n, bath.n)
     annotation(Line(points={{-50,-40},{-50,-80},{190,-80},{190,0}}, color={0,0,255}));
 
   annotation(
     Documentation(info = "<html>
-      <h2>Step06 -- Potencial de accion Hodgkin-Huxley en current-clamp</h2>
+      <h2>Step06 -- Hodgkin-Huxley action potential under current clamp</h2>
 
-      <h3>Objetivo de aprendizaje</h3>
+      <h3>Learning objective</h3>
       <p>
-        Generar y analizar un potencial de accion (PA) en el modelo clasico
-        de Hodgkin y Huxley (1952). Comprender como la inyeccion de una
-        corriente umbral desencadena una respuesta todo-o-nada, y como las
-        variables de compuerta m, h y n describen la cinetica de los canales
-        de Na+ y K+ durante el PA.
+        Generate and analyze an action potential (AP) in the classic
+        Hodgkin-Huxley (1952) model. Understand how injecting a threshold
+        current triggers an all-or-nothing response, and how the gating
+        variables m, h, and n describe the kinetics of the Na+ and K+
+        channels during the AP.
       </p>
 
-      <h3>Protocolo</h3>
+      <h3>Protocol</h3>
       <pre>
-  t = 0    - 10 ms:  I_command = 0 pA   (reposo)
-  t = 10   - 15 ms:  I_command = 10 pA  (estimulo umbral)
-  t = 15   - 50 ms:  I_command = 0 pA   (observar respuesta)
+  t = 0    - 10 ms:  I_command = 0 pA   (rest)
+  t = 10   - 15 ms:  I_command = 10 pA  (threshold stimulus)
+  t = 15   - 50 ms:  I_command = 0 pA   (observe response)
       </pre>
 
-      <h3>Que observar</h3>
+      <h3>What to observe</h3>
       <ul>
         <li>
-          Variables a graficar: neuron.V_m (potencial de membrana en V),
-          neuron.m, neuron.h, neuron.n (variables de compuerta, sin unidad),
-          neuron.I_Na, neuron.I_K (corrientes ionicas en A).
+          Variables to plot: neuron.V_m (membrane potential in V),
+          neuron.m, neuron.h, neuron.n (dimensionless gating variables),
+          neuron.I_Na, neuron.I_K (ionic currents in A).
         </li>
         <li>
-          Potencial de reposo: V_m = -65 mV (condicion inicial fijada
-          por los valores iniciales de m, h, n en estado estacionario).
+          Resting potential: V_m = -65 mV (initial condition set by the
+          steady-state initial values of m, h, and n).
         </li>
         <li>
-          Umbral de disparo: aproximadamente -55 mV. Por debajo del umbral
-          no se genera PA; por encima se dispara un PA completo.
+          Firing threshold: approximately -55 mV. Below threshold no AP is
+          generated; above it a full AP fires.
         </li>
         <li>
-          Secuencia del PA: depolarizacion rapida por apertura de Na+
-          (m sube, h permanece alto), repolarizacion por inactivacion de Na+
-          (h baja) y apertura de K+ (n sube), hiperpolarizacion transitoria
-          (post-hyperpolarization) mientras K+ se cierra (n baja).
+          AP sequence: rapid depolarization from Na+ channel opening
+          (m rises, h stays high), repolarization from Na+ inactivation
+          (h falls) and K+ channel opening (n rises), and a transient
+          after-hyperpolarization while K+ closes (n falls).
         </li>
       </ul>
 
-      <h3>Valores de referencia</h3>
+      <h3>Reference values</h3>
       <pre>
-  V_reposo   = -65 mV
-  V_umbral   = approx -55 mV
-  V_pico     = approx +35 mV
-  Duracion PA = approx 2-3 ms (a 6.3 C equivalente)
-  I_Na pico  = ordenes de nA, supera ampliamente I_K
+  V_rest     = -65 mV
+  V_threshold = approx -55 mV
+  V_peak     = approx +35 mV
+  AP duration = approx 2-3 ms (at 6.3 degC equivalent)
+  I_Na peak  = order of nA, well above I_K
       </pre>
 
-      <h3>Preguntas de reflexion</h3>
+      <h3>Discussion questions</h3>
       <ol>
         <li>
-          Reduce I_pulse a 5 pA. Se sigue generando el PA? Que pasa con
-          8 pA? Esto ilustra el concepto de umbral todo-o-nada.
+          Reduce I_pulse to 5 pA. Does an AP still fire? What about 8 pA?
+          This illustrates the all-or-nothing threshold concept.
         </li>
         <li>
-          Observa la variable m durante la depolarizacion: es la compuerta
-          de activacion de Na+. Por que sube tan rapidamente comparada con n?
+          Watch the m variable during depolarization: it is the Na+
+          activation gate. Why does it rise so much faster than n?
         </li>
         <li>
-          Por que existe una hiperpolarizacion despues del PA?
-          Cuales canales la producen y cuanto dura?
+          Why is there an after-hyperpolarization following the AP?
+          Which channels produce it, and how long does it last?
         </li>
         <li>
-          Aplica un segundo pulso a t=30 ms (durante el periodo refractario).
-          Se genera un segundo PA? Por que no?
+          Apply a second pulse at t=30 ms (during the refractory period).
+          Does a second AP fire? Why or why not?
         </li>
         <li>
-          Aumenta I_pulse a 50 pA mantenido (quita el t_pulse_end).
-          Cuantos potenciales de accion se generan? Esto se llama
-          tren de disparos (firing train).
+          Increase I_pulse to a sustained 50 pA (remove t_pulse_end).
+          How many action potentials are generated? This is called a
+          firing train.
         </li>
       </ol>
 
-      <h3>Equivalente experimental</h3>
+      <h3>Experimental equivalent</h3>
       <p>
-        Replica el experimento original de Hodgkin y Huxley en axon gigante
-        de calamar (Loligo), adaptado a current-clamp whole-cell en neuronas
-        corticales de mamifero. El modelo usa los parametros originales de
-        Hodgkin and Huxley (1952) J. Physiol. 117:500-544.
+        Replicates the original Hodgkin and Huxley experiment on the squid
+        (Loligo) giant axon, adapted here to whole-cell current clamp in a
+        generic mammalian cortical-style neuron. The model uses the
+        original parameters from Hodgkin and Huxley (1952) J. Physiol.
+        117:500-544.
       </p>
 
-      <h3>Referencia</h3>
+      <h3>Reference</h3>
       <p>
         Hodgkin AL, Huxley AF (1952). A quantitative description of membrane
         current and its application to conduction and excitation in nerve.
@@ -171,7 +172,7 @@ equation
         fontSize = 9),
       Text(
         extent = {{-100,60},{30,44}},
-        textString = "Pipeta",
+        textString = "Pipette",
         textColor = {0,100,0},
         fontSize = 9),
       Text(

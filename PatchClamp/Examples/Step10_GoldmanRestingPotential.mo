@@ -60,7 +60,7 @@ model Step10_GoldmanRestingPotential
   // To change permeabilities, double-click the membrane block in OMEdit's
   // diagram view ("Membrane permeabilities" group); to change
   // concentrations, double-click int_sol or ext_sol instead.
-  PatchClamp.Membranes.GoldmanMembrane membrana(
+  PatchClamp.Membranes.GoldmanMembrane membrane(
     c_K_in   = int_sol.c_K,
     c_Na_in  = int_sol.c_Na,
     c_Cl_in  = int_sol.c_Cl,
@@ -82,11 +82,11 @@ model Step10_GoldmanRestingPotential
     annotation(Placement(transformation(extent = {{50, -70}, {90, -30}})));
 
   // Convenience aliases so these show up directly in OMEdit's Variables Browser
-  Modelica.Units.SI.Voltage E_K       = membrana.E_K       "Alias of membrana.E_K (typical: -89 mV)";
-  Modelica.Units.SI.Voltage E_Na      = membrana.E_Na      "Alias of membrana.E_Na (typical: +72 mV)";
-  Modelica.Units.SI.Voltage E_Cl      = membrana.E_Cl      "Alias of membrana.E_Cl (typical: -64 mV)";
-  Modelica.Units.SI.Voltage E_Ca      = membrana.E_Ca      "Alias of membrana.E_Ca (typical: +132 mV)";
-  Modelica.Units.SI.Voltage V_Goldman = membrana.V_Goldman "Alias of membrana.V_Goldman (typical: -65 mV)";
+  Modelica.Units.SI.Voltage E_K       = membrane.E_K       "Alias of membrane.E_K (typical: -89 mV)";
+  Modelica.Units.SI.Voltage E_Na      = membrane.E_Na      "Alias of membrane.E_Na (typical: +72 mV)";
+  Modelica.Units.SI.Voltage E_Cl      = membrane.E_Cl      "Alias of membrane.E_Cl (typical: -64 mV)";
+  Modelica.Units.SI.Voltage E_Ca      = membrane.E_Ca      "Alias of membrane.E_Ca (typical: +132 mV)";
+  Modelica.Units.SI.Voltage V_Goldman = membrane.V_Goldman "Alias of membrane.V_Goldman (typical: -65 mV)";
 
   parameter Real osm_target(unit = "mol/m3") = 295.0
     "Target physiological osmolarity [mOsm = mol/m3]"
@@ -106,7 +106,7 @@ equation
   // membrane_p is left unconnected, so flux = 0 and I_total = 0 at rest;
   // the solver finds V_m as the root of sum(GHK currents) = 0, which is
   // exactly V_Goldman -- this models the cell in open circuit.
-  connect(gnd.p, membrana.membrane_n);
+  connect(gnd.p, membrane.membrane_n);
 
   osm_in  = int_sol.osmolarity;
   osm_out = ext_sol.osmolarity;

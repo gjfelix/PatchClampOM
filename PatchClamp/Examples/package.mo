@@ -4,8 +4,8 @@ package Examples "Patch clamp experiments, ready to simulate in OMEdit"
     Documentation(info = "<html>
       <h2>Examples</h2>
       <p>
-        Twenty-four virtual experiments (<code>Step01_PipetteSealTest</code>
-        through <code>Step24_AccessResistanceCompensation</code>) demonstrating
+        Twenty-five virtual experiments (<code>Step01_PipetteSealTest</code>
+        through <code>Step25_LigandGatedSingleChannel</code>) demonstrating
         the PatchClamp package, sequenced to introduce one new concept at a
         time. Each runs directly from OMEdit with no additional code. A few
         representative ones:

@@ -4,7 +4,7 @@
 > **PatchClamp** OpenModelica package. Each table covers one sub-package.
 > Icons are the block's actual OMEdit icon, stored in `PatchClamp/Icons/`
 > and referenced from each model via a `Bitmap` annotation
-> (`modelica://PatchClamp/Icons/<BlockName>.png`). `Step01`–`Step24` in
+> (`modelica://PatchClamp/Icons/<BlockName>.png`). `Step01`–`Step25` in
 > `Examples/` intentionally have no per-block PNG (they use a generated
 > Rectangle+Text icon instead — see the Examples section below).
 >
@@ -131,6 +131,7 @@ Full path: `PatchClamp.Membranes`
 | ![](../PatchClamp/Icons/CellAttachedPatch.png) | `CellAttachedPatch` | Cell-attached gigaseal patch: $R_\text{seal} \| (R_\text{patch} \| C_\text{patch})$ | `R_seal` (1 GΩ), `R_patch` (50 GΩ), `C_patch` (0.1 pF) | `p_pip`, `p_ext` (Pin\_p) | $I_\text{seal}=V_\text{patch}/R_\text{seal}$; $I_{R}=V_\text{patch}/R_\text{patch}$; $I_C=C_\text{patch}\,\dot{V}_\text{patch}$; $p_\text{pip}.i=I_\text{seal}+I_R+I_C$ |
 | ![](../PatchClamp/Icons/SingleChannelPatch.png) | `SingleChannelPatch` | Single-channel mean-field model, configurable configuration (on-cell / inside-out / outside-out) | `config` (1–3), `c_pipette`, `c_bath`, `c_cell_native`, `gamma` (100 pS), `n_ch`, `V_half`, `k_v` | `membrane_p`, `membrane_n` | $P_{\infty}=1/(1+e^{-(V_m-V_{1/2})/k_v})$; $\tau_\text{ch}=\tau_\text{max}/\cosh(\Delta V/2k_v)$; $\dot{P}_\text{open}=(P_\infty-P_\text{open})/\tau_\text{ch}$; $I=P_\text{open}\,n\,\gamma\,(V_m-E_\text{rev})$ |
 | ![](../PatchClamp/Icons/StochasticChannel.png) | `StochasticChannel` | Stochastic counterpart of `SingleChannelPatch`: `n_channels` independent 2-state Markov channels, discrete open/close events instead of an ensemble average | `config` (1–3), `c_pipette`, `c_bath`, `c_cell_native`, `gamma`, `n_channels`, `V_half`, `k_v`, `tau_max`, `dt`, `useAutomaticSeed`, `fixedSeed` | `membrane_p`, `membrane_n` | Same $P_\infty(V)$/$\tau(V)$ formalism as `SingleChannelPatch`; $\alpha=P_\infty/\tau$, $\beta=(1-P_\infty)/\tau$; each channel flips via `when sample(0,dt)` with probability $\approx\alpha\,dt$ (closed→open) or $\beta\,dt$ (open→closed); $I_\text{patch}=\sum_i \text{isOpen}_i\cdot\gamma(V_m-E_\text{rev})$ |
+| | `LigandGatedChannel` | Stochastic ligand-gated channel patch: `n_channels` independent 2-state Markov channels opened by an agonist pulse (Hill dependence) instead of by voltage; ensemble average integrated alongside. No PNG icon yet (vector icon) | `n_channels`, `gamma` (30 pS), `E_rev`, `EC50` (0.010 mM), `n_hill` (2), `k_close` (200 s⁻¹), `c_agonist`, `t_agonist_on/off`, `dt` | `membrane_p`, `membrane_n` | $k_\text{open}=k_\text{close}(c_L/\text{EC}_{50})^{n}$, $P_{\text{open},\infty}=c_L^n/(c_L^n+\text{EC}_{50}^n)$ |
 | ![](../PatchClamp/Icons/GHKConductance.png) | `GHKConductance` | Single-ion GHK membrane conductance | `z`, `P` (1×10⁻⁸ m/s), `c_in`, `c_out`, `A` (1000 µm²) | `membrane_p`, `membrane_n` | $J=\text{ghkCurrentDensity}(P,z,V_m,T,c_\text{in},c_\text{out})$; $I=J\cdot A$; $E_\text{rev}=\text{nernstPotential}(T,z,c_\text{out},c_\text{in})$ |
 | ![](../PatchClamp/Icons/GoldmanMembrane.png) | `GoldmanMembrane` | Multi-ion membrane: Nernst potentials + GHK currents for K⁺, Na⁺, Cl⁻, Ca²⁺ | `P_K`, `P_Na`, `P_Cl`, `P_Ca` [m/s]; `c_*_in`, `c_*_out` [mM] | `membrane_p`, `membrane_n` | $V_G=\frac{RT}{F}\ln\!\frac{P_K c_{K,o}+P_\text{Na}c_{\text{Na},o}+P_\text{Cl}c_{\text{Cl},i}}{P_K c_{K,i}+P_\text{Na}c_{\text{Na},i}+P_\text{Cl}c_{\text{Cl},o}}$; $I_\text{ion}=\text{ghkCurrentDensity}(\ldots)\cdot A$ per ion |
 | ![](../PatchClamp/Icons/MarkovChannel.png) | `MarkovChannel` | 2-state Markov channel (Closed ↔ Open), Ohmic current | `z`, `c_in`, `c_out`, `gamma` (100 pS), `n_channels`, `V_half`, `k_v` | `membrane_p`, `membrane_n` | $P_\infty=1/(1+e^{-(V_m-V_{1/2})/k_v})$; $\dot{P}_\text{open}=(P_\infty-P_\text{open})/\tau_\text{ch}$; $i_u=\gamma(V_m-E_\text{rev})$; $I=P_\text{open}\,n\,i_u$ |
@@ -140,7 +141,7 @@ Full path: `PatchClamp.Membranes`
 
 ## 7. Examples
 
-Ready-to-simulate experiments. Full path: `PatchClamp.Examples`. All 24 use a
+Ready-to-simulate experiments. Full path: `PatchClamp.Examples`. All 25 use a
 generated (Rectangle+Text) OMEdit icon rather than a per-block PNG, so there
 is no icon column here — see [`examples-reference.md`](examples-reference.md)
 for full walkthroughs and [`model-reference.md`](model-reference.md) for
@@ -169,6 +170,10 @@ detailed per-example parameter/output notes.
 | 19 | `Step19_InsideOutSingleChannel` | 0.300 s | Inside-out patch clamp — BK channel modulated by intracellular Ca²⁺ |
 | 20 | `Step20_OutsideOutSingleChannel` | 0.300 s | Outside-out patch clamp — AMPA receptor reversal potential |
 | 21 | `Step21_StochasticSingleChannel` | 0.150 s | Stochastic single-channel recording — same Kv channel as Step18, but with discrete gating events |
+| 22 | `Step22_PipetteCapacitanceCompensation` | 0.200 s | C-fast (pipette capacitance) compensation isolated, cell-attached |
+| 23 | `Step23_WholeCellCapacitanceCompensation` | 0.200 s | C-slow (whole-cell capacitance) compensation isolated, just after break-in |
+| 24 | `Step24_AccessResistanceCompensation` | 0.200 s | $R_s$ (access resistance) compensation isolated; voltage-clamp error |
+| 25 | `Step25_LigandGatedSingleChannel` | 0.300 s | Ligand-gated stochastic single-channel recording — agonist pulse on an outside-out patch |
 
 ---
 
@@ -182,7 +187,7 @@ PatchClamp/
 │   └── Functions/             — nernstPotential, ghkCurrentDensity
 ├── Electrodes/                — PatchPipette, AgAgClElectrode, BathElectrode, Ground
 ├── Membranes/                 — CellAttachedPatch, SingleChannelPatch, StochasticChannel,
-│                                 GHKConductance, GoldmanMembrane, MarkovChannel, WholeCell
+│                                 LigandGatedChannel, GHKConductance, GoldmanMembrane, MarkovChannel, WholeCell
 ├── Amplifiers/                — VoltageClampAmplifier, CurrentClampAmplifier,
 │   │                             SealTest, RampVoltageSource
 │   └── Compensation/          — PipetteCapacitanceComp, WholeCellCapacitanceComp,
@@ -191,7 +196,7 @@ PatchClamp/
 │   │                             FitzHughNagumoNeuron, MorrisLecarNeuron,
 │   │                             PacemakerCell, CardiacVentricularCell
 │   └── Interfaces/            — PartialExcitableCell
-└── Examples/                  — Step01 … Step24 (24 ready-to-run experiments)
+└── Examples/                  — Step01 … Step25 (25 ready-to-run experiments)
 ```
 
 ---

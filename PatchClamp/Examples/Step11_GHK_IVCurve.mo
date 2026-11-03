@@ -10,13 +10,13 @@ model Step11_GHK_IVCurve
   // and the membrane produces whatever GHK current that voltage demands.
   //
   // To trace the I-V curve in OMEdit: simulate with stopTime = 0.5 s, then
-  // Plot -> Parametric Plot (XY Parametric) with X = membrana.V_m,
-  // Y = membrana.I_total. The I_total = 0 crossing is the reversal potential.
+  // Plot -> Parametric Plot (XY Parametric) with X = membrane.V_m,
+  // Y = membrane.I_total. The I_total = 0 crossing is the reversal potential.
   //
   // Single-ion reversal: double-click the membrane block ("Membrane
   // permeabilities" group) and set P_Na=P_Cl=P_Ca=0, leaving only P_K.
   // Expect V_rev ~ E_K ~ -89 mV -- with a single ion, GHK reduces to
-  // Nernst (cross-check against membrana.E_K, or Step10).
+  // Nernst (cross-check against membrane.E_K, or Step10).
   //
   // Multi-ion (Goldman) reversal: restore the defaults
   // (P_K=1e-8, P_Na=4e-10, P_Cl=4.5e-9, P_Ca=1e-11). Expect
@@ -55,7 +55,7 @@ model Step11_GHK_IVCurve
     p    = 101325.0)
     annotation(Placement(transformation(extent = {{80, -40}, {160, 40}})));
 
-  PatchClamp.Membranes.GoldmanMembrane membrana(
+  PatchClamp.Membranes.GoldmanMembrane membrane(
     c_K_in   = int_sol.c_K,
     c_Na_in  = int_sol.c_Na,
     c_Cl_in  = int_sol.c_Cl,
@@ -89,9 +89,9 @@ model Step11_GHK_IVCurve
 equation
   // vClamp forces p.v - n.v = V_ramp(t) with p.i + n.i = 0 (Kirchhoff); gnd
   // fixes membrane_n.v = 0 V, so V_m = membrane_p.v - 0 = V_ramp(t).
-  connect(vClamp.p, membrana.membrane_p);
-  connect(vClamp.n, membrana.membrane_n);
-  connect(gnd.p,    membrana.membrane_n);
+  connect(vClamp.p, membrane.membrane_p);
+  connect(vClamp.n, membrane.membrane_n);
+  connect(gnd.p,    membrane.membrane_n);
 
   annotation(
     Documentation(info = "<html>
@@ -122,8 +122,8 @@ equation
       <ol>
         <li>Simulate with stopTime = 0.5 s, Interval = 0.001 s.</li>
         <li>Open <b>Plot &rarr; Parametric Plot</b> (XY Parametric).</li>
-        <li>X axis: <code>membrana.V_m</code></li>
-        <li>Y axis: <code>membrana.I_total</code></li>
+        <li>X axis: <code>membrane.V_m</code></li>
+        <li>Y axis: <code>membrane.I_total</code></li>
         <li>This is the multi-ion GHK membrane's I-V curve.</li>
         <li>The I = 0 crossing is the reversal potential (V_rev).</li>
       </ol>
@@ -131,14 +131,14 @@ equation
       <h3>Key variables</h3>
       <table border='1' cellpadding='4'>
         <tr><th>Variable</th><th>Meaning</th></tr>
-        <tr><td>membrana.V_m</td><td>ramp-imposed voltage (X axis)</td></tr>
-        <tr><td>membrana.I_total</td><td>net GHK current (Y axis)</td></tr>
-        <tr><td>membrana.I_K</td><td>K+ GHK current alone</td></tr>
-        <tr><td>membrana.I_Na</td><td>Na+ GHK current alone</td></tr>
-        <tr><td>membrana.I_Cl</td><td>Cl- GHK current alone</td></tr>
-        <tr><td>membrana.I_Ca</td><td>Ca2+ GHK current alone</td></tr>
-        <tr><td>membrana.V_Goldman</td><td>theoretical (Goldman) reversal potential</td></tr>
-        <tr><td>membrana.E_K, E_Na, E_Cl, E_Ca</td><td>individual Nernst potentials</td></tr>
+        <tr><td>membrane.V_m</td><td>ramp-imposed voltage (X axis)</td></tr>
+        <tr><td>membrane.I_total</td><td>net GHK current (Y axis)</td></tr>
+        <tr><td>membrane.I_K</td><td>K+ GHK current alone</td></tr>
+        <tr><td>membrane.I_Na</td><td>Na+ GHK current alone</td></tr>
+        <tr><td>membrane.I_Cl</td><td>Cl- GHK current alone</td></tr>
+        <tr><td>membrane.I_Ca</td><td>Ca2+ GHK current alone</td></tr>
+        <tr><td>membrane.V_Goldman</td><td>theoretical (Goldman) reversal potential</td></tr>
+        <tr><td>membrane.E_K, E_Na, E_Cl, E_Ca</td><td>individual Nernst potentials</td></tr>
         <tr><td>vClamp.V_out</td><td>instantaneous ramp voltage</td></tr>
       </table>
 

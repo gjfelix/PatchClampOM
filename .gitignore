@@ -166,3 +166,5 @@ Thumbs.db
 # LaTeX manuscript itself are kept out of the public repo for now
 /WileyDesign/
 /paper_latex/
+!docs/conf.py
+docs/_build/

@@ -1,13 +1,13 @@
 # Examples Reference
 
-`PatchClamp.Examples` contains 24 ready-to-simulate models, `Step01` through
-`Step24`. Eighteen of them get a full reference entry below: what each
-demonstrates, what to look for, and how to run it. The other six
-(Step01, Step02, Step03, Step05, Step06, Step09) introduce the most basic
-circuit topologies — patch clamp workflow, passive cell, Hodgkin-Huxley —
-and are instead covered, to varying depth, by
-[`getting-started.md`](getting-started.md); see the Master index below for
-exactly where each is covered.
+`PatchClamp.Examples` contains 25 ready-to-simulate models, `Step01` through
+`Step25`. Eight of them — the ones that introduce a genuinely new circuit
+topology a student should learn to assemble by hand — have a full,
+build-it-yourself walkthrough in `Tutorials/`. The other seventeen reuse
+circuit patterns already covered by those walkthroughs (current-clamp cell,
+voltage-clamp cell, or single-channel patch) with a different cell model or
+protocol, so instead of a from-scratch tutorial each gets a reference entry
+below: what it demonstrates, what to look for, and how to run it.
 
 **Use this page alongside:**
 - [`getting-started.md`](getting-started.md) — hands-on walkthroughs for the introductory examples
@@ -45,6 +45,7 @@ exactly where each is covered.
 | 22 | `Step22_PipetteCapacitanceCompensation` | Voltage-clamp protocol | Reference (below) |
 | 23 | `Step23_WholeCellCapacitanceCompensation` | Voltage-clamp protocol | Reference (below) |
 | 24 | `Step24_AccessResistanceCompensation` | Voltage-clamp protocol | Reference (below) |
+| 25 | `Step25_LigandGatedSingleChannel` | Single-channel patch | Reference (below) |
 
 ---
 
@@ -566,3 +567,36 @@ different (but still reproducible) random realization.
 **Expected results (default, fixedSeed = 42):** `i_unitary(+20 mV) ≈ 10.9 pA` (identical to Step18); the channel should be open roughly 98% of the time during the voltage step (matching Step18's `P_open_inf ≈ 0.982` statistically). Not yet exercised by `validation-results.md` — no formal statistical check (e.g. fraction-of-time-open over a fixed window) has been run yet; this is a good candidate for a future addition to the validation suite.
 
 **See also:** Step18 (the deterministic counterpart — same channel, same protocol).
+
+---
+
+### Step25 — Ligand-Gated Single-Channel Recording
+
+**Model:** `PatchClamp.Examples.Step25_LigandGatedSingleChannel`
+**Uses:** `VoltageClampAmplifier` → `PatchPipette` → `LigandGatedChannel` (`n_channels = 1`, 30 pS, `E_rev = 0`) → `BathElectrode`
+
+Same stochastic single-channel circuit as Step21, but the channel is opened by
+an **agonist** instead of by voltage. The membrane is held at a constant
+−70 mV and a 30 µM agonist pulse is applied from 0.05 to 0.20 s, mimicking a
+fast-perfusion concentration jump on an outside-out patch. The opening rate
+follows a Hill relationship, `k_open = k_close·(c_L/EC50)^n_hill`, so the
+steady-state open probability is `c_L^n / (c_L^n + EC50^n)`.
+
+**Objectives**
+- See ligand-driven gating: no current flows without agonist at any voltage, discrete inward steps appear while it is present, and the channel closes again when it is removed.
+- Connect the dose–response relationship to the Hill equation by repeating the pulse at several concentrations.
+- See the law of large numbers: with more channels the stochastic trace converges to its ensemble average.
+
+**Simulation instructions**
+Default `stopTime = 0.300 s`, `interval = 5e-5 s`. Plot `chan.I_patch`
+(discrete steps), `chan.I_mean` (smooth ensemble average), `chan.c_L`
+(agonist concentration) and `chan.nOpenChannels`. Then:
+- **Dose–response:** set `chan.c_agonist` to 0.003, 0.010, 0.030 and 0.100 mM and compare the fraction of time open with `chan.P_open_inf`.
+- **Law of large numbers:** set `chan.n_channels` to 5, 20 and 200.
+- **Deactivation:** after `t_agonist_off` the open fraction decays with time constant `1/k_close` (5 ms); this is clearest with many channels.
+- **Voltage independence:** set `amp.V_hold` and `amp.V_step` to +0.040 V; gating is unchanged, but the unitary current reverses to +1.2 pA.
+- **Amplitude histogram:** export `chan.I_patch` for t = 0.08–0.20 s; two peaks appear at 0 and ≈ −2.1 pA.
+
+**Expected results (default, fixedSeed = 42):** `i_unitary = −2.1 pA` (30 pS × −70 mV); `P_open_inf = 0.90` during the pulse and 0 outside it; mean open time ≈ 5 ms; deactivation τ ≈ 5 ms. Validated by checks LG-1 to LG-6 in [`validation-results.md`](validation-results.md). The model has no desensitization, unlike real nAChR, AMPA or GABA-A receptors.
+
+**See also:** Step21 (the voltage-gated stochastic counterpart); Step20 (outside-out patch with a ligand-dependent voltage shift rather than true agonist gating).
