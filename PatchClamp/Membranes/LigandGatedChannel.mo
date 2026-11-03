@@ -177,11 +177,9 @@ equation
       Interval  = 5e-5,
       Tolerance = 1e-8),
     Icon(graphics = {
-      Rectangle(extent = {{-100, -100}, {100, 100}}, lineColor = {20, 110, 60}, lineThickness = 2.0, fillColor = {220, 245, 228}, fillPattern = FillPattern.Solid),
-      Rectangle(extent = {{-60, 40}, {60, 25}}, lineColor = {20, 110, 60}, fillColor = {170, 220, 185}, fillPattern = FillPattern.Solid),
-      Rectangle(extent = {{-60, -25}, {60, -40}}, lineColor = {20, 110, 60}, fillColor = {170, 220, 185}, fillPattern = FillPattern.Solid),
-      Ellipse(extent = {{-12, 75}, {12, 51}}, lineColor = {200, 60, 20}, fillColor = {255, 170, 120}, fillPattern = FillPattern.Solid),
-      Text(extent = {{-90, -55}, {90, -80}}, textString = "Ligand-gated", textColor = {20, 110, 60}, fontSize = 11)
+      Bitmap(
+        extent = {{-100, -100}, {100, 100}},
+        fileName = "modelica://PatchClamp/Icons/LigandStochasticChannel.png")
     }),
     Diagram(graphics = {
       Rectangle(extent = {{-80, 20}, {80, 8}}, lineColor = {20, 110, 60}, fillColor = {170, 220, 185}, fillPattern = FillPattern.Solid),
